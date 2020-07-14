@@ -18,31 +18,35 @@
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="row">
-                    
+
                     <form method="POST" enctype="multipart/form-data" action="<?php echo e(route('admin.post.edit',$post->id)); ?>">
                         <?php echo csrf_field(); ?>
                         <div class="col-8">
                             <div class="form-group">
                                 <label><strong>Tiêu đề</strong></label>
-                                <input type="text" required value="<?php echo e($post->title); ?>" name="title" id="title" class="form-control">
+                                <input type="text" required value="<?php echo e($post->title); ?>" name="title" id="title"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="col-8">
                             <div class="form-group">
                                 <label><strong>Tiêu đề phụ</strong></label>
-                                <input type="text" required value="<?php echo e($post->sub_title); ?>" name="subtitle" id="subtitle" class="form-control">
+                                <input type="text" required value="<?php echo e($post->sub_title); ?>" name="subtitle" id="subtitle"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="col-8">
                             <div class="form-group">
                                 <label><strong>Người viết</strong></label>
-                                <input type="text" required value="<?php echo e($post->author); ?>" name="author" id="author" class="form-control">
+                                <input type="text" required value="<?php echo e($post->author); ?>" name="author" id="author"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="col-8">
                             <div class="form-group">
                                 <label><strong>Địa điểm</strong></label>
-                                <input type="text" required value="<?php echo e($post->place); ?>" name="place" id="place" class="form-control">
+                                <input type="text" required value="<?php echo e($post->place); ?>" name="place" id="place"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="col-8">
@@ -71,9 +75,21 @@
                             </div>
                             <?php endif; ?>
                         </div>
-                        <div class="gallery" id="showImage"></div>
                     </form>
-
+                    <div><button type="button" id="resetimg">Reset ảnh</button></div>
+                    <div>
+                        <?php $__currentLoopData = $imgpost; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $valimgpost): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <span class="pip">
+                            <div id="abc<?php echo e($valimgpost->id); ?>">
+                                <img class="imageThumb" style="width:128px;height:128px;"
+                                    src="<?php echo e(asset('/uploads/imgpost/'.$valimgpost->link_img)); ?>">
+                                <br><span class="img-delete" data-id="<?php echo e($valimgpost->id); ?>"
+                                    key-id="<?php echo e($key); ?>">Remove</span>
+                            </div>
+                        </span>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <div id="showImage"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -86,28 +102,46 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(e){
-        const arr = []
-        const arr1 = []
-        $("#images").change(function(){
-            var filename = this.value;
-            var lastIndex = filename.lastIndexOf("\\");
-            if (lastIndex >= 0) {
-                filename = filename.substring(lastIndex + 1);
+        $(".img-delete").click(function(){
+            var id = $(this).attr("data-id");
+            var key = $(this).attr("key-id");
+            var result = confirm("Bạn có muốn xóa ảnh số "+key+" ?");
+            if (result == true) {
+                $("div#abc"+id).remove();
+                
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type:'GET',
+                    url:'http://localhost/blog/public/admin/edit/delete/img/'+id,
+                    contentType: false,
+                    processData: false,
+                    cache:false,
+                    success:function(data) {
+                        alert(data.success);
+                    }
+                });
             }
+        });
+        $("#resetimg").click(function(){
+            $("span#pip").remove();
+            document.getElementById("images").value = "";
+        });
+        $("#images").change(function(){
+            $("span#pip").remove();
             var files = $('#images')[0].files;
             for (var i = 0; i < files.length; i++) {
-                if (arr.indexOf(files[i].name) === -1) { 
-                    arr.push(files[i].name)
-                    arr1.push(document.getElementById('images').files[i])
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var addImage = '<div class="col-md-3"><img style="width:128px;height:128px;" src='+e.target.result+'></div>';
-                        $("#showImage").append(addImage);
-                    }
-                    reader.readAsDataURL(this.files[i]);
-                } 
-                
-            }
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var addImage = '<span class="pip" id="pip">'+
+                        '<img class="imageThumb" style="width:128px;height:128px;" src=' + e.target.result + '>';
+                    $("#showImage").append(addImage);
+                }
+                reader.readAsDataURL(this.files[i]);
+            } 
         });
     });
 

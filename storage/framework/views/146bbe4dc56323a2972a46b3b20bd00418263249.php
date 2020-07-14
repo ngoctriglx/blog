@@ -70,9 +70,9 @@
                             </div>
                             <?php endif; ?>
                         </div>
-                        <div class="gallery" id="showImage"></div>
                     </form>
-
+                    <div><button type="button" id="resetimg">Reset ảnh</button></div>
+                    <div id="showImage"></div>
                 </div>
             </div>
         </div>
@@ -85,28 +85,22 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(e){
-        const arr = []
-        const arr1 = []
+        $("#resetimg").click(function(){
+            $("span.pip").remove();
+            document.getElementById("images").value = "";
+        });
         $("#images").change(function(){
-            var filename = this.value;
-            var lastIndex = filename.lastIndexOf("\\");
-            if (lastIndex >= 0) {
-                filename = filename.substring(lastIndex + 1);
-            }
+            $("span.pip").remove();
             var files = $('#images')[0].files;
             for (var i = 0; i < files.length; i++) {
-                if (arr.indexOf(files[i].name) === -1) { 
-                    arr.push(files[i].name)
-                    arr1.push(document.getElementById('images').files[i])
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var addImage = '<div class="col-md-3"><img style="width:128px;height:128px;" src='+e.target.result+'></div>';
-                        $("#showImage").append(addImage);
-                    }
-                    reader.readAsDataURL(this.files[i]);
-                } 
-                
-            }
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var addImage = '<span class="pip">'+
+                        '<img class="imageThumb" style="width:128px;height:128px;" src=' + e.target.result + '>';
+                    $("#showImage").append(addImage);
+                }
+                reader.readAsDataURL(this.files[i]);
+            } 
         });
     });
 

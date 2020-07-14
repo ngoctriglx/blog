@@ -8,7 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
     <link href="{{asset('css/admin/main.css')}}" rel="stylesheet" type="text/css">
@@ -127,7 +128,7 @@
 
         {{--  Layout Options  --}}
         /////////
-   
+
         <div class="app-main">
             <div class="app-sidebar sidebar-shadow">
                 <div class="app-header__logo">
@@ -214,12 +215,17 @@
                 </div>
             </div>
 
-        {{--  CONTENT --}}
-        @yield('content')
-    </div>
+            {{--  CONTENT --}}
+            @yield('content')
+        </div>
     </div>
     <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript" src="{{asset('js/admin.master.js')}}"></script>
+    @if(session('alert'))
+    <script type="text/javascript">
+        window.onload = alert('{{session('alert')}}');
+    </script>
+    @endif
     @yield('script')
 </body>
 

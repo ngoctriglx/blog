@@ -53,7 +53,11 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('/add','Admin\PostController@getAdd')->name('admin.get.add');
     Route::post('/postadd','Admin\PostController@postAdd')->name('admin.post.add');
+
     Route::get('/edit/{id}','Admin\PostController@getEdit')->name('admin.get.edit');
+    Route::get('/edit/delete/img/{id}','Admin\PostController@getDeleteimg')->name('admin.get.delete.img');
     Route::post('/postedit/{id}','Admin\PostController@postEdit')->name('admin.post.edit');
+
+    Route::get('/delete/post/{id}','Admin\PostController@getDelete')->name('admin.get.delete');
 
 });

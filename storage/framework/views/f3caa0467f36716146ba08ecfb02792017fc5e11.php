@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" name="save2" class="btn btn-success">Lưu</button>
+                        <button type="submit" name="save2" id="myReset" class="btn btn-success">Lưu</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Thoát</button>
                     </div>
                 </div>
@@ -167,40 +167,44 @@
         });
     </script>
     <script>
-        $("#subpassword").submit(function(e){
-            e.preventDefault();
-            var formData = new FormData();
-            var pass0 = $("#pass0").val();
-            var pass1 = $("#pass1").val();
-            var pass2 = $("#pass2").val();
-            formData.append('pass0',pass0);
-            formData.append('pass1',pass1);
-            formData.append('pass2',pass2);
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type:'POST',
-                url:"<?php echo e(route('user.post.repassword')); ?>",
-                data: formData,
-                contentType: false,
-                processData: false,
-                cache:false,
-                success:function(data) {
-                    if($.isEmptyObject(data.error)){
-                        $("#msg1").html(data.success);
-                    }else{
-                        printErrorMsg(data.error);
-                    } 
-                }
-            });
-            function printErrorMsg (msg) {
-                $.each( msg, function( key, value ) {
-                    $("#msg1").find("ul").append('<li>'+value+'</li>');
+        $(document).ready(function(e){
+            
+            $("#subpassword").submit(function(e){
+                $("li").remove();
+                e.preventDefault();
+                var formData = new FormData();
+                var pass0 = $("#pass0").val();
+                var pass1 = $("#pass1").val();
+                var pass2 = $("#pass2").val();
+                formData.append('pass0',pass0);
+                formData.append('pass1',pass1);
+                formData.append('pass2',pass2);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
                 });
-            }
+                $.ajax({
+                    type:'POST',
+                    url:"<?php echo e(route('user.post.repassword')); ?>",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    cache:false,
+                    success:function(data) {
+                        if($.isEmptyObject(data.error)){
+                            $("#msg1").html(data.success);
+                        }else{
+                            printErrorMsg(data.error);
+                        } 
+                    }
+                });
+                function printErrorMsg (msg) {
+                    $.each( msg, function( key, value ) {
+                        $("#msg1").find("ul").append('<li>'+value+'</li>');
+                    });
+                }
+            });
         });
     </script>
     <script>

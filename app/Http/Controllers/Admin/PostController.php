@@ -18,7 +18,8 @@ class PostController extends Controller
     }
     public function getEdit($id){
         $post = DB::table('post')->where('id',$id)->first();
-        return view('admin.postCtrl.edit',['post'=>$post]);
+        $imgpost = DB::table('imgpost')->where('post_id',$id)->get();
+        return view('admin.postCtrl.edit',['post'=>$post,'imgpost'=>$imgpost]);
     }
 
     public function postAdd(Request $request){
@@ -79,5 +80,13 @@ class PostController extends Controller
             $imgpost->save();
         }
         return back()->with('error','Thêm bài viết thành công !');  
+    }
+    public function getDelete($id){
+        DB::table('post')->where('id', $id)->delete();
+        return back();
+    }
+    public function getDeleteimg($id){
+        DB::table('imgpost')->where('id',$id)->delete();
+        return response()->json(['success'=>'Xóa thành công.']);
     }
 }

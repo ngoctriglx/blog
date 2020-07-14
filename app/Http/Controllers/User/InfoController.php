@@ -41,34 +41,34 @@ class InfoController extends Controller
         }
     }
     public function postChangepw(Request $request){
-        // $validator = Validator::make($request->all(), [
-        //     'pass1' => 'bail|min:6|unique:users,password',
-        //     'pass2' => 'same:pass1'
-        // ] , [
-        //     'pass1.min' => 'Mật phai co 6 ky tu tro len',
-        //     'pass1.unique' => 'Mật khẩu mới phải khác mật khẩu cũ!',
-        //     'pass2.same' => 'Mật khẩu nhập lại không khớp !'
-        // ]);
-        //if ($validator->passes()) {
-            // $pass0 = bcrypt($request->input('pass0'));
-            // $pass1 = $request->input('pass1');
-            // $pass2 = $request->input('pass2');
-            // $user = DB::table('users')->where('id',Auth::user()->id);
-            //if (!empty($pass0)) {
-                // if(hash::check($pass0,$user->password)){
-                //     return response()->json(['success'=>'Mật khẩu cũ không đúng']);
-                // }else{
-                //     $user->update(['password' => bcrypt($pass1)]);
+        $validator = Validator::make($request->all(), [
+            'pass1' => 'bail|min:6|unique:users,password',
+            'pass2' => 'same:pass1'
+        ] , [
+            'pass1.min' => 'Mật phai co 6 ky tu tro len',
+            'pass1.unique' => 'Mật khẩu mới phải khác mật khẩu cũ!',
+            'pass2.same' => 'Mật khẩu nhập lại không khớp !'
+        ]);
+        if ($validator->passes()) {
+            $pass0 = bcrypt($request->input('pass0'));
+            $pass1 = $request->input('pass1');
+            $pass2 = $request->input('pass2');
+            $user = DB::table('users')->where('id',Auth::user()->id);
+            if (!empty($pass0)) {
+                if(hash::check($pass0,$user->password)){
+                    return response()->json(['success'=>'Mật khẩu cũ không đúng']);
+                }else{
+                    $user->update(['password' => bcrypt($pass1)]);
                     // return back()->with('alert' , 'Cập nhập thành công !');
-                //     return response()->json(['success'=>'Cập nhập thành công']);
-                // }
-            //}else{
-                //$user->update(['password' => bcrypt($pass1)]);
-                // return response()->json(['success'=>'Cập nhập thành công']);
-                return back()->with('alert','Cập nhập thành công !');
-            //}
-        //}else{
-            //return response()->json(['error'=>$validator->errors()->all()]);
-        //}
+                    return response()->json(['success'=>'Cập nhập thành công']);
+                }
+            }else{
+                $user->update(['password' => bcrypt($pass1)]);
+                return response()->json(['success'=>'Cập nhập thành công']);
+                // return back()->with('alert','Cập nhập thành công !');
+            }
+        }else{
+            return response()->json(['error'=>$validator->errors()->all()]);
+        }
     }
 }

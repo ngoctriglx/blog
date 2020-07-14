@@ -39,10 +39,11 @@ class ShowController extends Controller
         $user = DB::table('users')->get();
         $replycmt = DB::table('replycomment')->orderBy('updated_at','desc')->get();
         $imgpost = DB::table('imgpost')->get();
+        $infocmt = Info::all();
         if(Auth::check()){
             $info = Info::where('user_id',Auth::User()->id)->get();
+            return view('home.blogdetail',['post'=>$post,'info'=>$info,'infocmt'=>$infocmt,'cmt'=>$cmt,'user'=>$user,'replycmt'=>$replycmt,'imgpost'=>$imgpost,'imgavt'=>$imgavt]);
         }
-        $infocmt = Info::all();
-        return view('home.blogdetail',['post'=>$post,'info'=>$info,'infocmt'=>$infocmt,'cmt'=>$cmt,'user'=>$user,'replycmt'=>$replycmt,'imgpost'=>$imgpost,'imgavt'=>$imgavt]);
+        return view('home.blogdetail',['post'=>$post,'infocmt'=>$infocmt,'cmt'=>$cmt,'user'=>$user,'replycmt'=>$replycmt,'imgpost'=>$imgpost,'imgavt'=>$imgavt]);
     }
 }

@@ -20,7 +20,7 @@
                 <!-- <h5 class="card-title">
                     Bootstrap 4 Form Validation
                 </h5> -->
-                <form class="needs-validation" novalidate>
+       
                     <div class="form-row">
                         <table class="table">
                             <thead class="thead-dark">
@@ -42,7 +42,7 @@
                                     <td><?php echo e($valpost->author); ?>o</td>
                                     <td><?php echo e($valpost->content); ?></td>
                                     <td>1</td>
-                                    <td><?php echo e($valpost->created_at); ?></td>
+                                    <td><?php echo e($valpost->updated_at); ?></td>
                                     <td>
                                         <a class="f_pc" href="<?php echo e(route('home.get.blogdetail',$valpost->title)); ?>">
                                             <button type="button" class="btn btn-success">
@@ -52,50 +52,29 @@
                                         <a class="f_pc" href="<?php echo e(route('admin.get.edit',$valpost->id)); ?>">
                                             <button type="button" class="btn btn-info">Sửa</button>
                                         </a>
-                                        <a class="f_pc" href="">
-                                            <button onclick="buttonDelete()" type="button"
-                                                class="btn btn-danger">Xóa</button>
-                                        </a>
+                                            <button type="button" onclick="myDeletepost('<?php echo e($valpost->sub_title); ?>',<?php echo e($valpost->id); ?>)" class="btn btn-danger">Xóa</button>
                                     </td>
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
-                </form>
-
-                <!-- change avatar? -->
-
-                <!-- <div class="container">
-                    <h1>jQuery Image Upload 
-                        <small>with preview</small>
-                    </h1>
-                    <div class="avatar-upload">
-                        <div class="avatar-edit">
-                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-                            <label for="imageUpload"><i class="fa fa-cog"></i></label>
-                        </div>
-                        <div class="avatar-preview">
-                            <div class="long-image" id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
             </div>
         </div>
     </div>
 </div>
+
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
-    function buttonDelete() {
-      var result = confirm("Bạn có muốn xóa ?");
-      if(result == true)
-          //gọi hàm xóa
-      endif
-      //không có gì xãy ra
+    function myDeletepost(subtitle,id1){
+        var subtitle;
+        var id = id1;
+        var result = confirm("Bạn có muốn xóa "+subtitle+" ?");
+        if (result == true) {
+            window.location.href = "http://localhost/blog/public/admin/delete/"+id
+          }
     }
 </script>
 <?php $__env->stopSection(); ?>
