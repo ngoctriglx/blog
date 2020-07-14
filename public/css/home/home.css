@@ -1,0 +1,100 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.container-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.wrap-avatar {
+    padding: 30px 0 20px 0;
+}
+.avatar {
+    vertical-align: middle;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+.infor {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.infor h2{
+    padding-bottom: 5px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.infor h4{
+    padding-bottom: 5px;
+    font-size: 18px;
+}
+.infor code{
+    padding-bottom: 5px;
+}
+
+.social {
+    padding: 10px 10px 25px 10px;
+}
+.space {
+    background-color: red;
+}
+.followers {
+    position: relative;
+    top: 0;
+    left: -6px;
+    right: 0;
+    border-style: solid solid solid none;
+    border-width: thin;
+    padding: 5px 10px 6px 10px;
+}
+.wrap-content-tabs{
+    padding: 30px;
+}
+.icon-social{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-size: 20px;
+}
+.icon-social > i {
+    padding: 0.5em;
+    cursor: pointer;
+}
+.about {
+    padding: 0px 20px;
+    color: #bcbcbc;
+    width: 60%;
+    text-align: center;
+    margin: 0 auto;
+}
+.bio {
+    padding: 10px;
+}
+.bio h1 {
+    font-size: 36px;
+}
+.bio .bio-content {
+    
+}
+.timeline {
+    padding: 10px;
+}
+.timeline h1{
+    font-size: 36px;
+}
+.timeline ul>li{
+    margin-bottom: 5px;
+}
+.timeline .timeline-content{
+    margin-left: 50px;
+}

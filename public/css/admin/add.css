@@ -1,0 +1,22 @@
+div.gallery {
+    margin: 12px;
+    border: 1px solid #ccc;
+    float: left;
+    max-width: 240px;
+    height: 300px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    background-size: cover;
+  }
+  
+  div.gallery:hover {
+    border: 1px solid #777;
+  }
+  
+  div.gallery img {
+    width: 100%;
+    height: auto;
+  }

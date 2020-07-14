@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateImgpostTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('imgpost', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email',50);
-            $table->string('password',100)->nullable();
-            $table->string('remember_token',60)->nullable();
-            $table->timestamps();
+            $table->integer('post_id')->length(10)->unsigned();
+            $table->foreign('post_id')->references('id')->on('post')->onDelete('cascade');
+            $table->string('link_img',50);
         });
     }
 
@@ -29,6 +28,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('imgpost');
     }
 }
