@@ -3,6 +3,7 @@
 <?php $__env->startSection('css'); ?>
 <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 <link type="text/css" href="<?php echo e(asset('css/home/blogdetail.css')); ?>" rel="stylesheet">
+
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('title',$post->title); ?>
@@ -62,8 +63,9 @@
               <span class="like" data-id="<?php echo e($post->id); ?>"><i id="like" style="color:black ;"
                   class="fa fa-heart"></i></span>
               <?php endif; ?>
-              <span><i style="color: orange;" class="fa fa-bookmark"></i></span>
-              <span><i style="color: blue;" class="fa fa-share"></i></span>
+              
+              <span class="fb-share-button" data-href="<?php echo e($urlshare); ?>"
+              data-layout="button" data-size="small"><i style="color: blue;" class="fa fa-share"></i></span>
               <?php else: ?>
               <h3 style="color: blue">Đăng nhập để like và chia sẽ bài viết</h3>
               <?php endif; ?>
@@ -71,6 +73,7 @@
           </nav>
           <hr class="hr-content" />
         </div>
+
         
         <img class="d-flex g-width-50 g-height-50 rounded-circle" <?php if(Auth::check()): ?>
           src="<?php echo e(asset('/uploads/imguser/'.$info->avatar)); ?>" <?php else: ?> src="<?php echo e(asset('/uploads/imguser/login.jpg')); ?>" <?php endif; ?>
@@ -81,15 +84,13 @@
               <?php if(Auth::check()): ?><?php echo e($info->name); ?><?php endif; ?>
             </h5>
           </div>
-          <form action="<?php echo e(route('user.post.comment',$post->id)); ?>" method="POST">
+          <form action="" id="comment" data-id="<?php echo e($post->id); ?>" method="POST">
             <?php echo csrf_field(); ?>
             <div style="margin-top: 15px;">
-              <textarea name="content" required style="height: 100px;"
+              <textarea id="content1" name="content1" required style="height: 100px;"
                 class="form-control media-body u-shadow-v18 g-bg-secondary" placeholder="Comment"></textarea>
-
               <div style="margin-top: 15px;">
                 <div class="row">
-                  
                   <div class="col-md-4">
                     <button style="margin-left: 10px;" type="submit" class="btn btn-primary">Comment</button>
                   </div>
@@ -99,7 +100,7 @@
           </form>
         </div>
         <div class="wrap-comment">
-          <h2><?php echo e($cmt->count()); ?> COMMENT</h2>
+          <h2><?php echo e($sumcmt); ?> COMMENT</h2>
 
           <!-- comment -->
           <?php $__currentLoopData = $cmt; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $valcmt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -162,7 +163,7 @@
                       <form action="<?php echo e(route('user.post.replycomment',$valcmt->id)); ?>" method="POST">
                         <?php echo csrf_field(); ?>
                         <div style="margin-top: 15px;">
-                          <textarea style="height: 130px;" name="content" required
+                          <textarea style="height: 130px;" name="content2" required
                             class="form-control media-body u-shadow-v18 g-bg-secondary"
                             placeholder="comment"></textarea>
                           <div style="margin-top: 15px;">
@@ -316,7 +317,17 @@
       if(id.style.color === "black"){
         id.style.color = "red";
         const status = "like";
+        likeFunction(status);
+      }else{
+        if(id.style.color === "red"){
+          id.style.color = "black";
+          const status = "disklike";
+          likeFunction(status);
+        }
+      }
+      function likeFunction(status) {
         e.preventDefault();
+        console.log(post_id);
         var formData = new FormData();
         formData.append('post_id',post_id);
         formData.append('status',status);
@@ -333,35 +344,12 @@
             processData: false,
             cache:false,
             success:function(data) {
-                
-            }
-        });
-      }else
-      if(id.style.color === "red"){
-        id.style.color = "black";
-        const status = "disklike";
-        e.preventDefault();
-        var formData = new FormData();
-        formData.append('post_id',post_id);
-        formData.append('status',status);
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
-        $.ajax({
-            type:'POST',
-            url:"<?php echo e(route('user.get.like')); ?>",
-            data: formData,
-            contentType: false,
-            processData: false,
-            cache:false,
-            success:function(data) {
-              
+               
           }
         });
       }
     });
+    
   });
 </script>
 <script>
@@ -375,5 +363,37 @@
     }
   }
 </script>
+<script>
+  $(document).ready(function(e){
+      $("#comment").submit(function(e){
+        const post_id = $(this).attr("data-id");
+        const content = $("#content1").val();
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('post_id',post_id);
+        formData.append('content',content);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:"<?php echo e(route('user.post.comment')); ?>",
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache:false,
+            success:function(data) {
+            }
+        });
+        location.reload();
+      });
+      
+  });
+</script>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" 
+src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=660344757451291&autoLogAppEvents=1"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('home.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\xampp\htdocs\blog\resources\views/home/blogdetail.blade.php ENDPATH**/ ?>

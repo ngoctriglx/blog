@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Post,App\Imgpost,App\User,App\Cmt,App\Info,Auth;
+use Illuminate\Support\Facades\URL;
 
 class ShowController extends Controller
 {
@@ -40,12 +41,23 @@ class ShowController extends Controller
         $replycmt = DB::table('replycomment')->orderBy('updated_at','desc')->get();
         $imgpost = DB::table('imgpost')->get();
         $infocmt = Info::all();
+        $urlshare = URL::current();
+        $i=0;
+        foreach ($cmt as $key => $value) {
+           $sumrely = DB::table('replycomment')->where('comment_id',$value->id)->get();
+           foreach ($sumrely as $key => $value) {
+               $i+=1;
+           }
+        }
+        $sumcmt = $cmt->count()+$i;
         if(Auth::check()){
             $info = DB::table('info')->where('user_id',Auth::User()->id)->first();
-            $likepost = DB::table('likepost')->where('post_id',$id)->first();
-            
-            return view('home.blogdetail',['post'=>$post,'info'=>$info,'infocmt'=>$infocmt,'cmt'=>$cmt,'user'=>$user,'replycmt'=>$replycmt,'imgpost'=>$imgpost,'imgavt'=>$imgavt,'likepost'=> $likepost]);
+            $likepost = DB::table('likepost')->where([
+                ['user_id', Auth::User()->id],
+                ['post_id',$id],
+             ])->first();
+            return view('home.blogdetail',['post'=>$post,'info'=>$info,'infocmt'=>$infocmt,'cmt'=>$cmt,'user'=>$user,'replycmt'=>$replycmt,'imgpost'=>$imgpost,'imgavt'=>$imgavt,'likepost'=> $likepost,'urlshare'=>$urlshare,'sumcmt'=>$sumcmt]);
         }
-        return view('home.blogdetail',['post'=>$post,'infocmt'=>$infocmt,'cmt'=>$cmt,'user'=>$user,'replycmt'=>$replycmt,'imgpost'=>$imgpost,'imgavt'=>$imgavt]);
+        return view('home.blogdetail',['post'=>$post,'infocmt'=>$infocmt,'cmt'=>$cmt,'user'=>$user,'replycmt'=>$replycmt,'imgpost'=>$imgpost,'imgavt'=>$imgavt,'sumcmt'=>$sumcmt]);
     }
 }

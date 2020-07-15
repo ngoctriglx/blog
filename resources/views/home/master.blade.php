@@ -162,7 +162,7 @@
       </div>
     </div>
   </div>
-  <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
     integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
   </script>

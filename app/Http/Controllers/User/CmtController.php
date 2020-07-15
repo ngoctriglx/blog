@@ -8,15 +8,15 @@ use App\Cmt,App\Replycmt,Auth;
 
 class CmtController extends Controller
 {
-    public function postComment(Request $request , $post_id){
+    public function postComment(Request $request){
         if(Auth::check()){
             $user_id = Auth::user()->id;
             $cmt = new Cmt;
             $cmt['user_id'] = $user_id;
-            $cmt['post_id'] = $post_id;
-            $cmt['content'] = $request['content'];
+            $cmt['post_id'] = $request->input('post_id');
+            $cmt['content'] = $request->input('content');
             $cmt->save();
-            return back();
+            return response()->json(['success'=>'']);
         }
         else{
             return back()->with('alert' , 'Bạn chưa đăng nhập !');
@@ -28,7 +28,7 @@ class CmtController extends Controller
             $replycmt = new Replycmt;
             $replycmt['user_id'] = $user_id;
             $replycmt['comment_id'] = $cmt_id;
-            $replycmt['content'] = $request['content'];
+            $replycmt['content'] = $request['content2'];
             $replycmt->save();
             return back();
         }

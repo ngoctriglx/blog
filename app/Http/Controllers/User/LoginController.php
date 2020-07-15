@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 class LoginController extends Controller
 {
     public function getLogin(){
+        session(['link' => url()->previous()]);
         return view('home.login');
     }
     public function postLogin(Request $request){
@@ -18,7 +19,7 @@ class LoginController extends Controller
 		$password = $request->password;
 
         if(Auth::attempt(['email' => $email , 'password' => $password])){
-            return redirect()->route('home.get.blog');
+            return redirect()->back();
         }
         else{
             $user = DB::table('user')->where('email', $email)->first();
@@ -35,10 +36,10 @@ class LoginController extends Controller
     
     public function getLogout(){
         if(!Auth::check()){
-            redirect()->route('home.get.blog');
+            return redirect()->back();
         }
         Auth::logout();
-        return redirect()->route('home.get.blog');
+        return redirect()->back();
     }
 
     public function getFacebookRedirect($provider){
@@ -55,7 +56,7 @@ class LoginController extends Controller
                 $finduser = User::where('email',$facebook->email)->first();
                 if($count > 0){
                     Auth::login($finduser);
-                    return redirect()->route('home.get.blog');
+                    return redirect(session('link'));
                 }
                 else{
                     $user = new User;
@@ -68,7 +69,7 @@ class LoginController extends Controller
                     $info['avatar'] = $facebook->avatar;
                     $info->save();
                     Auth::login($user);
-                    return redirect()->route('home.get.blog');
+                    return redirect(session('link'));
                 }
             }
         } catch (Exception $e) {
@@ -85,7 +86,7 @@ class LoginController extends Controller
             $finduser = User::where('email', $google->email)->first();
             if($finduser){
                 Auth::login($finduser);
-                return redirect()->route('home.get.blog');
+                return redirect(session('link'));
            }else{
                 $user = new User();
                 $user['email'] = $google->email;
@@ -96,7 +97,7 @@ class LoginController extends Controller
                 $info['name'] = $google->name;
                 $info->save();
                 Auth::login($user);
-                return redirect()->route('home.get.blog');
+                return redirect(session('link'));
             }
         } catch (Exception $e) {
             dd($e->getMessage());

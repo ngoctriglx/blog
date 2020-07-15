@@ -35,7 +35,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('password/reset/{remember_token}','User\ResetPassword@checktoken');
     Route::post('password/newpass',"User\ResetPassword@newPass")->name('user.post.newpass');
 
-    Route::post('/comment/{post_id}','User\CmtController@postComment')->name('user.post.comment');
+    Route::post('/comment','User\CmtController@postComment')->name('user.post.comment');
     Route::post('/replycomment/{cmt_id}','User\CmtController@postReplyComment')->name('user.post.replycomment');
 
     Route::get('/infouser','User\InfoController@getInfo')->name('user.get.infouser');
