@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['prefix' => 'home'], function () {
 
-    Route::get('/','Home\ShowController@getHome')->name('home.get.home');
-    Route::get('/blog','Home\ShowController@getBlog')->name('home.get.blog');
-    Route::get('/{title}','Home\ShowController@getBlogdetail')->name('home.get.blogdetail');
+    Route::get('/home','Home\ShowController@getHome')->name('home.get.home');
+    Route::get('/','Home\ShowController@getBlog')->name('home.get.blog');
+    Route::get('/{id}/{title}','Home\ShowController@getBlogdetail')->name('home.get.blogdetail');
     
 });
 Route::group(['prefix' => 'user'], function () {
@@ -41,6 +41,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/infouser','User\InfoController@getInfo')->name('user.get.infouser');
     Route::post('/postinfouser','User\InfoController@postInfo')->name('user.post.infouser');
     Route::post('/postrepassword','User\InfoController@postChangepw')->name('user.post.repassword');
+
+    Route::post('/edit/like','User\LikeShareController@postLike')->name('user.get.like');
     
 });
 Route::group(['prefix' => 'admin'], function () {

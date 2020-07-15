@@ -44,7 +44,7 @@
                                     <td>1</td>
                                     <td>{{$valpost->updated_at}}</td>
                                     <td>
-                                        <a class="f_pc" href="{{route('home.get.blogdetail',$valpost->title)}}">
+                                        <a class="f_pc" href="{{route('home.get.blogdetail',['id'=>$valpost->id,'title'=>$valpost->title])}}">
                                             <button type="button" class="btn btn-success">
                                                 Chi tiết
                                             </button>

@@ -59,7 +59,7 @@
 
                         <div class="col-6">
                             <label><strong>Thêm ảnh</strong></label>
-                            <input type="file" name="images[]" accept=".png, .jpg, .jpeg" required multiple id="images">
+                            <input type="file" name="images[]" accept=".png, .jpg, .jpeg" multiple id="images">
                         </div>
                         <div class="col-8 mt-4">
                             <div class="form-group">
@@ -116,7 +116,7 @@
                 });
                 $.ajax({
                     type:'GET',
-                    url:'http://localhost/blog/public/admin/edit/delete/img/'+id,
+                    url:'http://localhost/blog/public/user/edit/like/'+id,
                     contentType: false,
                     processData: false,
                     cache:false,

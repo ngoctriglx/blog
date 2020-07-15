@@ -1,16 +1,11 @@
-<?php 
-use App\Info;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-
-?>
 
 
 <?php $__env->startSection('css'); ?>
+<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 <link type="text/css" href="<?php echo e(asset('css/home/blogdetail.css')); ?>" rel="stylesheet">
 <?php $__env->stopSection(); ?>
-<?php $__currentLoopData = $post; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valpost): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-<?php $__env->startSection('title',$valpost->title); ?>
+
+<?php $__env->startSection('title',$post->title); ?>
 <?php $__env->startSection('content'); ?>
 <div>
   <div class="wrap-container">
@@ -23,30 +18,31 @@ use Illuminate\Support\Facades\DB;
         </div>
         <div class="wrap-title">
           <span class="icon-title">
-            <strong>#<?php echo e($valpost->id); ?></strong><p>Travel</p>
+            <strong>#<?php echo e($post->id); ?></strong>
+            <p>Travel</p>
           </span>
           <div class="text-title">
-            <h2><?php echo e($valpost->sub_title); ?></h2>
-            <h5>By<a href=""><?php echo e($valpost->author); ?></a>/<a href=""><?php echo e($valpost->created_at); ?></a></h5>
+            <h2><?php echo e($post->sub_title); ?></h2>
+            <h5>By<a href=""><?php echo e($post->author); ?></a>/<a href=""><?php echo e($post->created_at); ?></a></h5>
           </div>
         </div>
         <div class="title-blog-detail">
-          <h2><span><?php echo e($valpost->place); ?></span></h2>
+          <h2><span><?php echo e($post->place); ?></span></h2>
         </div>
         <div class="tile-content">
-          <strong> # </strong> <?php echo e($valpost->title); ?>
+          <strong> # </strong> <?php echo e($post->title); ?>
 
         </div>
         <hr class="hr-content" />
         <div class="wrap-content">
           <p>
-            <?php echo e($valpost->content); ?>
+            <?php echo e($post->content); ?>
 
           </p>
           <hr class="hr-content" />
-          
+
           <?php $__currentLoopData = $imgpost; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valimgpost): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          <?php if($valimgpost->post_id === $valpost->id): ?>
+          <?php if($valimgpost->post_id === $post->id): ?>
           
           <div class="gallery">
             <a target="_blank" href="<?php echo e(asset('uploads/imgpost/'.$valimgpost->link_img)); ?>">
@@ -57,33 +53,40 @@ use Illuminate\Support\Facades\DB;
           <?php endif; ?>
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           <nav class="long-nav">
-            <span><i style="color: red;" class="fa fa-heart"></i></span>
-            <span><i style="color: orange;" class="fa fa-bookmark"></i></span>
-            <span><i style="color: blue;" class="fa fa-share"></i></span>
+            <form action="" method="POST">
+              <?php echo csrf_field(); ?>
+              <?php if(Auth::check()): ?>
+              <?php if(!empty($likepost)): ?>
+              <span class="like" data-id="<?php echo e($post->id); ?>"><i id="like" style="color:red;" class="fa fa-heart"></i></span>
+              <?php else: ?>
+              <span class="like" data-id="<?php echo e($post->id); ?>"><i id="like" style="color:black ;"
+                  class="fa fa-heart"></i></span>
+              <?php endif; ?>
+              <span><i style="color: orange;" class="fa fa-bookmark"></i></span>
+              <span><i style="color: blue;" class="fa fa-share"></i></span>
+              <?php else: ?>
+              <h3 style="color: blue">Đăng nhập để like và chia sẽ bài viết</h3>
+              <?php endif; ?>
+            </form>
           </nav>
           <hr class="hr-content" />
         </div>
         
-        <img class="d-flex g-width-50 g-height-50 rounded-circle" <?php if(Auth::check()): ?> <?php $__currentLoopData = $info; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valinfo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          src="<?php echo e(asset('/uploads/imguser/'.$valinfo->avatar)); ?>" <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php else: ?> src="<?php echo e(asset('/uploads/imguser/login.jpg')); ?>" <?php endif; ?>
+        <img class="d-flex g-width-50 g-height-50 rounded-circle" <?php if(Auth::check()): ?>
+          src="<?php echo e(asset('/uploads/imguser/'.$info->avatar)); ?>" <?php else: ?> src="<?php echo e(asset('/uploads/imguser/login.jpg')); ?>" <?php endif; ?>
           alt="Image Description">
         <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
           <div class="g-mb-15">
             <h5 class="h5 g-color-gray-dark-v1 mb-0">
-              <?php if(Auth::check()): ?>
-              <?php $__currentLoopData = $info; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valinfo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-              <?php echo e($valinfo->name); ?>
-
-              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-              <?php endif; ?>
+              <?php if(Auth::check()): ?><?php echo e($info->name); ?><?php endif; ?>
             </h5>
           </div>
-          <form action="<?php echo e(route('user.post.comment',$valpost->id)); ?>" method="POST">
+          <form action="<?php echo e(route('user.post.comment',$post->id)); ?>" method="POST">
             <?php echo csrf_field(); ?>
             <div style="margin-top: 15px;">
               <textarea name="content" required style="height: 100px;"
                 class="form-control media-body u-shadow-v18 g-bg-secondary" placeholder="Comment"></textarea>
-                
+
               <div style="margin-top: 15px;">
                 <div class="row">
                   
@@ -97,7 +100,7 @@ use Illuminate\Support\Facades\DB;
         </div>
         <div class="wrap-comment">
           <h2><?php echo e($cmt->count()); ?> COMMENT</h2>
-          
+
           <!-- comment -->
           <?php $__currentLoopData = $cmt; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $valcmt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <?php $__currentLoopData = $infocmt; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valinfocmt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -105,11 +108,12 @@ use Illuminate\Support\Facades\DB;
           <div class="row">
             <div class="col-md-12">
               <div class="media g-mb-30 media-comment">
-                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="<?php echo e(asset('/uploads/imguser/'.$valinfocmt->avatar)); ?>"
-                  alt="Image Description">
+                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                  src="<?php echo e(asset('/uploads/imguser/'.$valinfocmt->avatar)); ?>" alt="Image Description">
                 <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                   <div class="g-mb-15">
-                    <h5 style="font-size: 20px; font-weight: bold;" class="h5 g-color-gray-dark-v1 mb-0"><?php echo e($valinfocmt->name); ?></h5>
+                    <h5 style="font-size: 20px; font-weight: bold;" class="h5 g-color-gray-dark-v1 mb-0">
+                      <?php echo e($valinfocmt->name); ?></h5>
                     <span class="g-color-gray-dark-v4 g-font-size-12"><?php echo e(($valcmt->created_at)); ?></span>
                   </div>
 
@@ -138,23 +142,21 @@ use Illuminate\Support\Facades\DB;
                 </div>
               </div>
               <!-- reply comment -->
-              
+
               <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-10">
                   <div class="media g-mb-30 media-comment">
                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" <?php if(Auth::check()): ?>
-                      <?php $__currentLoopData = $info; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valinfo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> src="<?php echo e(asset('/uploads/imguser/'.$valinfo->avatar)); ?>" <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php else: ?>
+                      src="<?php echo e(asset('/uploads/imguser/'.$info->avatar)); ?>" <?php else: ?>
                       src="<?php echo e(asset('/uploads/imguser/login.jpg')); ?>" <?php endif; ?> alt="Image Description">
                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                       <div class="text-right"><i class="fa fa-times-circle"></i>
                       </div>
                       <div class="g-mb-15">
                         <h5 class="h5 g-color-gray-dark-v1 mb-0"><?php if(Auth::check()): ?>
-                          <?php $__currentLoopData = $info; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valinfo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                          <?php echo e($valinfo->name); ?>
+                          <?php echo e($info->name); ?>
 
-                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                           <?php endif; ?></h5>
                       </div>
                       <form action="<?php echo e(route('user.post.replycomment',$valcmt->id)); ?>" method="POST">
@@ -177,7 +179,7 @@ use Illuminate\Support\Facades\DB;
                       </form>
                     </div>
                   </div>
-                  
+
                   <?php $__currentLoopData = $replycmt; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valreplycmt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php $__currentLoopData = $infocmt; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valinfocmt1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php if($valreplycmt->comment_id === $valcmt->id): ?>
@@ -187,7 +189,8 @@ use Illuminate\Support\Facades\DB;
                       src="<?php echo e(asset('/uploads/imguser/'.$valinfocmt1->avatar)); ?>" alt="Image Description">
                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                       <div class="g-mb-15">
-                        <h5 style="font-size: 20px; font-weight: bold;" class="h5 g-color-gray-dark-v1 mb-0"><?php echo e($valinfocmt1->name); ?></h5>
+                        <h5 style="font-size: 20px; font-weight: bold;" class="h5 g-color-gray-dark-v1 mb-0">
+                          <?php echo e($valinfocmt1->name); ?></h5>
                         <span class="g-color-gray-dark-v4 g-font-size-12"><?php echo e(($valreplycmt->created_at)); ?></span>
                       </div>
 
@@ -300,10 +303,67 @@ use Illuminate\Support\Facades\DB;
     </div>
   </div>
 </div>
-
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(e){
+    $(".like").click(function(e){
+      var id = document.getElementById('like');
+      var post_id = $(this).attr("data-id");
+      if(id.style.color === "black"){
+        id.style.color = "red";
+        const status = "like";
+        e.preventDefault();
+        var formData = new FormData();
+        formData.append('post_id',post_id);
+        formData.append('status',status);
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+            type:'POST',
+            url:"<?php echo e(route('user.get.like')); ?>",
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache:false,
+            success:function(data) {
+                
+            }
+        });
+      }else
+      if(id.style.color === "red"){
+        id.style.color = "black";
+        const status = "disklike";
+        e.preventDefault();
+        var formData = new FormData();
+        formData.append('post_id',post_id);
+        formData.append('status',status);
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+            type:'POST',
+            url:"<?php echo e(route('user.get.like')); ?>",
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache:false,
+            success:function(data) {
+              
+          }
+        });
+      }
+    });
+  });
+</script>
 <script>
   function checkcmt(){
     var a = document.getElementById('cmt').value;

@@ -1,16 +1,11 @@
-<?php 
-use App\Info;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-
-?>
 @extends('home.master')
 
 @section('css')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link type="text/css" href="{{asset('css/home/blogdetail.css')}}" rel="stylesheet">
 @endsection
-@foreach($post as $valpost)
-@section('title',$valpost->title)
+
+@section('title',$post->title)
 @section('content')
 <div>
   <div class="wrap-container">
@@ -23,28 +18,29 @@ use Illuminate\Support\Facades\DB;
         </div>
         <div class="wrap-title">
           <span class="icon-title">
-            <strong>#{{$valpost->id}}</strong><p>Travel</p>
+            <strong>#{{$post->id}}</strong>
+            <p>Travel</p>
           </span>
           <div class="text-title">
-            <h2>{{$valpost->sub_title}}</h2>
-            <h5>By<a href="">{{$valpost->author}}</a>/<a href="">{{$valpost->created_at}}</a></h5>
+            <h2>{{$post->sub_title}}</h2>
+            <h5>By<a href="">{{$post->author}}</a>/<a href="">{{$post->created_at}}</a></h5>
           </div>
         </div>
         <div class="title-blog-detail">
-          <h2><span>{{$valpost->place}}</span></h2>
+          <h2><span>{{$post->place}}</span></h2>
         </div>
         <div class="tile-content">
-          <strong> # </strong> {{$valpost->title}}
+          <strong> # </strong> {{$post->title}}
         </div>
         <hr class="hr-content" />
         <div class="wrap-content">
           <p>
-            {{$valpost->content}}
+            {{$post->content}}
           </p>
           <hr class="hr-content" />
-          
+
           @foreach ($imgpost as $valimgpost)
-          @if ($valimgpost->post_id === $valpost->id)
+          @if ($valimgpost->post_id === $post->id)
           {{--  <div class="image-content">
           </div>  --}}
           <div class="gallery">
@@ -56,32 +52,40 @@ use Illuminate\Support\Facades\DB;
           @endif
           @endforeach
           <nav class="long-nav">
-            <span><i style="color: red;" class="fa fa-heart"></i></span>
-            <span><i style="color: orange;" class="fa fa-bookmark"></i></span>
-            <span><i style="color: blue;" class="fa fa-share"></i></span>
+            <form action="" method="POST">
+              @csrf
+              @if (Auth::check())
+              @if (!empty($likepost))
+              <span class="like" data-id="{{$post->id}}"><i id="like" style="color:red;" class="fa fa-heart"></i></span>
+              @else
+              <span class="like" data-id="{{$post->id}}"><i id="like" style="color:black ;"
+                  class="fa fa-heart"></i></span>
+              @endif
+              <span><i style="color: orange;" class="fa fa-bookmark"></i></span>
+              <span><i style="color: blue;" class="fa fa-share"></i></span>
+              @else
+              <h3 style="color: blue">Đăng nhập để like và chia sẽ bài viết</h3>
+              @endif
+            </form>
           </nav>
           <hr class="hr-content" />
         </div>
         {{-- comment  --}}
-        <img class="d-flex g-width-50 g-height-50 rounded-circle" @if(Auth::check()) @foreach($info as $valinfo)
-          src="{{asset('/uploads/imguser/'.$valinfo->avatar)}}" @endforeach @else src="{{asset('/uploads/imguser/login.jpg')}}" @endif
+        <img class="d-flex g-width-50 g-height-50 rounded-circle" @if(Auth::check())
+          src="{{asset('/uploads/imguser/'.$info->avatar)}}" @else src="{{asset('/uploads/imguser/login.jpg')}}" @endif
           alt="Image Description">
         <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
           <div class="g-mb-15">
             <h5 class="h5 g-color-gray-dark-v1 mb-0">
-              @if(Auth::check())
-              @foreach($info as $valinfo)
-              {{$valinfo->name}}
-              @endforeach
-              @endif
+              @if(Auth::check()){{$info->name}}@endif
             </h5>
           </div>
-          <form action="{{route('user.post.comment',$valpost->id)}}" method="POST">
+          <form action="{{route('user.post.comment',$post->id)}}" method="POST">
             @csrf
             <div style="margin-top: 15px;">
               <textarea name="content" required style="height: 100px;"
                 class="form-control media-body u-shadow-v18 g-bg-secondary" placeholder="Comment"></textarea>
-                
+
               <div style="margin-top: 15px;">
                 <div class="row">
                   {{--  <div class="col-md-8">
@@ -96,7 +100,7 @@ use Illuminate\Support\Facades\DB;
         </div>
         <div class="wrap-comment">
           <h2>{{$cmt->count()}} COMMENT</h2>
-          
+
           <!-- comment -->
           @foreach($cmt as $key => $valcmt)
           @foreach($infocmt as $valinfocmt)
@@ -104,11 +108,12 @@ use Illuminate\Support\Facades\DB;
           <div class="row">
             <div class="col-md-12">
               <div class="media g-mb-30 media-comment">
-                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{{asset('/uploads/imguser/'.$valinfocmt->avatar)}}"
-                  alt="Image Description">
+                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                  src="{{asset('/uploads/imguser/'.$valinfocmt->avatar)}}" alt="Image Description">
                 <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                   <div class="g-mb-15">
-                    <h5 style="font-size: 20px; font-weight: bold;" class="h5 g-color-gray-dark-v1 mb-0">{{$valinfocmt->name}}</h5>
+                    <h5 style="font-size: 20px; font-weight: bold;" class="h5 g-color-gray-dark-v1 mb-0">
+                      {{$valinfocmt->name}}</h5>
                     <span class="g-color-gray-dark-v4 g-font-size-12">{{($valcmt->created_at)}}</span>
                   </div>
 
@@ -137,22 +142,20 @@ use Illuminate\Support\Facades\DB;
                 </div>
               </div>
               <!-- reply comment -->
-              
+
               <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-10">
                   <div class="media g-mb-30 media-comment">
                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" @if(Auth::check())
-                      @foreach($info as $valinfo) src="{{asset('/uploads/imguser/'.$valinfo->avatar)}}" @endforeach @else
+                      src="{{asset('/uploads/imguser/'.$info->avatar)}}" @else
                       src="{{asset('/uploads/imguser/login.jpg')}}" @endif alt="Image Description">
                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                       <div class="text-right"><i class="fa fa-times-circle"></i>
                       </div>
                       <div class="g-mb-15">
                         <h5 class="h5 g-color-gray-dark-v1 mb-0">@if(Auth::check())
-                          @foreach($info as $valinfo)
-                          {{$valinfo->name}}
-                          @endforeach
+                          {{$info->name}}
                           @endif</h5>
                       </div>
                       <form action="{{route('user.post.replycomment',$valcmt->id)}}" method="POST">
@@ -175,7 +178,7 @@ use Illuminate\Support\Facades\DB;
                       </form>
                     </div>
                   </div>
-                  
+
                   @foreach ($replycmt as $valreplycmt)
                   @foreach ($infocmt as $valinfocmt1)
                   @if ($valreplycmt->comment_id === $valcmt->id)
@@ -185,7 +188,8 @@ use Illuminate\Support\Facades\DB;
                       src="{{asset('/uploads/imguser/'.$valinfocmt1->avatar)}}" alt="Image Description">
                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                       <div class="g-mb-15">
-                        <h5 style="font-size: 20px; font-weight: bold;" class="h5 g-color-gray-dark-v1 mb-0">{{$valinfocmt1->name}}</h5>
+                        <h5 style="font-size: 20px; font-weight: bold;" class="h5 g-color-gray-dark-v1 mb-0">
+                          {{$valinfocmt1->name}}</h5>
                         <span class="g-color-gray-dark-v4 g-font-size-12">{{($valreplycmt->created_at)}}</span>
                       </div>
 
@@ -298,10 +302,67 @@ use Illuminate\Support\Facades\DB;
     </div>
   </div>
 </div>
-
-@endforeach
 @endsection
 @section('script')
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(e){
+    $(".like").click(function(e){
+      var id = document.getElementById('like');
+      var post_id = $(this).attr("data-id");
+      if(id.style.color === "black"){
+        id.style.color = "red";
+        const status = "like";
+        e.preventDefault();
+        var formData = new FormData();
+        formData.append('post_id',post_id);
+        formData.append('status',status);
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+            type:'POST',
+            url:"{{route('user.get.like')}}",
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache:false,
+            success:function(data) {
+                {{--  alert(data.success);  --}}
+            }
+        });
+      }else
+      if(id.style.color === "red"){
+        id.style.color = "black";
+        const status = "disklike";
+        e.preventDefault();
+        var formData = new FormData();
+        formData.append('post_id',post_id);
+        formData.append('status',status);
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+            type:'POST',
+            url:"{{route('user.get.like')}}",
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache:false,
+            success:function(data) {
+              {{--  alert(data.success);  --}}
+          }
+        });
+      }
+    });
+  });
+</script>
 <script>
   function checkcmt(){
     var a = document.getElementById('cmt').value;

@@ -46,7 +46,7 @@
             <img class="card-img-top" src="<?php echo e(asset('uploads/imgpost/'.$val2->link_img)); ?>" alt="">
             <div class="card-body">
               <p class="card-text"><?php echo e($val->title); ?></p>
-              <a href="<?php echo e(route('home.get.blogdetail',$val->title)); ?>"><small>Xem thêm</small></a>
+              <a href="<?php echo e(route('home.get.blogdetail',['id'=>$val->id,'title'=>$val->title])); ?>"><small>Xem thêm</small></a>
               
             </div>
           </div>

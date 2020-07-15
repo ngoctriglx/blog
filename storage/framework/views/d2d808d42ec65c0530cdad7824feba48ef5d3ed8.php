@@ -9,11 +9,11 @@
     ?>
 
 <head>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Language" content="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title><?php echo $__env->yieldContent('title'); ?></title>
   <link href="<?php echo e(asset('css/home/header.css')); ?>" rel="stylesheet" type="text/css" />
   <link href="<?php echo e(asset('css/home/footer.css')); ?>" rel="stylesheet" type="text/css">
@@ -162,7 +162,7 @@
       </div>
     </div>
   </div>
-
+  <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
     integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
   </script>
