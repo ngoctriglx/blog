@@ -16,24 +16,24 @@ class CmtController extends Controller
             $cmt['post_id'] = $request->input('post_id');
             $cmt['content'] = $request->input('content');
             $cmt->save();
-            return response()->json(['success'=>'']);
+            return response();
         }
         else{
-            return back()->with('alert' , 'Bạn chưa đăng nhập !');
+            return response()->json(['error'=>'Bạn chưa đăng nhập.']);
         }
     }
-    public function postReplyComment(Request $request , $cmt_id){
+    public function postReplyComment(Request $request){
         if(Auth::check()){
             $user_id = Auth::user()->id;
             $replycmt = new Replycmt;
             $replycmt['user_id'] = $user_id;
-            $replycmt['comment_id'] = $cmt_id;
-            $replycmt['content'] = $request['content2'];
+            $replycmt['comment_id'] = $request->input('cmt_id');
+            $replycmt['content'] = $request->input('content');
             $replycmt->save();
-            return back();
+            return response();
         }
         else{
-            return back()->with('alert' , 'Bạn chưa đăng nhập !');
+            return response()->json(['error'=>'Bạn chưa đăng nhập.']);
         }
     }
 }

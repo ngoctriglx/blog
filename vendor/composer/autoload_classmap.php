@@ -6,13 +6,17 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AdminSeeder' => $baseDir . '/database/seeds/AdminSeeder.php',
+    'App\\Admin' => $baseDir . '/app/Admin.php',
     'App\\Cmt' => $baseDir . '/app/Cmt.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\Admin\\LoginController' => $baseDir . '/app/Http/Controllers/Admin/LoginController.php',
     'App\\Http\\Controllers\\Admin\\PostController' => $baseDir . '/app/Http/Controllers/Admin/PostController.php',
     'App\\Http\\Controllers\\Admin\\ShowController' => $baseDir . '/app/Http/Controllers/Admin/ShowController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\Home\\ShowController' => $baseDir . '/app/Http/Controllers/Home/ShowController.php',
+    'App\\Http\\Controllers\\LikepostController' => $baseDir . '/app/Http/Controllers/LikepostController.php',
     'App\\Http\\Controllers\\User\\CmtController' => $baseDir . '/app/Http/Controllers/User/CmtController.php',
     'App\\Http\\Controllers\\User\\InfoController' => $baseDir . '/app/Http/Controllers/User/InfoController.php',
     'App\\Http\\Controllers\\User\\LikeShareController' => $baseDir . '/app/Http/Controllers/User/LikeShareController.php',

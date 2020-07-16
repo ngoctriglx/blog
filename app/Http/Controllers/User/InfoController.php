@@ -54,9 +54,9 @@ class InfoController extends Controller
             $pass1 = $request->input('pass1');
             $pass2 = $request->input('pass2');
             $user = DB::table('users')->where('id',Auth::user()->id);
-            if (!empty($pass0)) {
+            if (empty($pass0)) {
                 if(hash::check($pass0,$user->password)){
-                    return response()->json(['success'=>'Mật khẩu cũ không đúng']);
+                    return response()->json(['success'=>'Mật khẩu hiện tại không đúng']);
                 }else{
                     $user->update(['password' => bcrypt($pass1)]);
                     // return back()->with('alert' , 'Cập nhập thành công !');
@@ -64,7 +64,7 @@ class InfoController extends Controller
                 }
             }else{
                 $user->update(['password' => bcrypt($pass1)]);
-                return response()->json(['success'=>'Cập nhập thành công']);
+                return response()->json(['success'=>'Cập nhập thành công !']);
                 // return back()->with('alert','Cập nhập thành công !');
             }
         }else{

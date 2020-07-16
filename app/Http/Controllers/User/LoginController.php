@@ -19,7 +19,7 @@ class LoginController extends Controller
 		$password = $request->password;
 
         if(Auth::attempt(['email' => $email , 'password' => $password])){
-            return redirect()->back();
+            return redirect(session('link'));
         }
         else{
             $user = DB::table('user')->where('email', $email)->first();

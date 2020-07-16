@@ -27,7 +27,6 @@
                                 <label>Mật khẩu hiện tại</label>
                                 <input class="form-control" name="pass0" id="pass0" placeholder="Nhập mật khẩu cũ"
                                     required type="password">
-                                
                             </div>
                             <?php endif; ?>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -36,14 +35,12 @@
                                 <label>Mật khẩu mới</label>
                                 <input class="form-control" name="pass1" id="pass1"
                                     placeholder="Mật khẩu có 6 ký tự trở lên" required type="password">
-                                
                             </div>
                             <p></p>
                             <div class="form-group pass_show">
                                 <label>Nhập lại mật khẩu</label>
                                 <input class="form-control" name="pass2" id="pass2" placeholder="Nhập lại mật khẩu"
                                     required type="password">
-                                
                             </div>
                             <p></p>
                             <div id="msg1">

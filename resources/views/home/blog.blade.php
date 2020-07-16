@@ -43,7 +43,7 @@
         @if ($val2->post_id === $val->id)
         <div class="col-sm card-items">
           <div class="card" style="width: 20rem;">
-            <img class="card-img-top" src="{{asset('uploads/imgpost/'.$val2->link_img)}}" alt="">
+            <img class="card-img-top" style="height: 200px" src="{{asset('uploads/imgpost/'.$val2->link_img)}}" alt="">
             <div class="card-body">
               <p class="card-text">{{$val->title}}</p>
               <a href="{{route('home.get.blogdetail',['id'=>$val->id,'title'=>$val->title])}}"><small>Xem thêm</small></a>

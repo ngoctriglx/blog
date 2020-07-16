@@ -22,8 +22,8 @@ Route::group(['prefix' => 'home'], function () {
 Route::group(['prefix' => 'user'], function () {
 
     Route::get('/login','User\LoginController@getLogin')->name('user.get.login');
-    Route::post('/login','User\LoginController@postLogin')->name('user.post.login');
-    Route::get('/logout','User\LoginController@getLogout')->name('user.get.logout');
+    Route::post('/postloginuser','User\LoginController@postLogin')->name('user.post.login');
+    Route::get('/logoutuser','User\LoginController@getLogout')->name('user.get.logout');
 
     Route::get('/loginfacebook/{provider}','User\LoginController@getFacebookRedirect')->name('user.get.facebookredirect');
     Route::get('/loginfacebook/{provider}/callback','User\LoginController@getFacebookCallback')->name('user.get.facebookcallback');
@@ -36,7 +36,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('password/newpass',"User\ResetPassword@newPass")->name('user.post.newpass');
 
     Route::post('/comment','User\CmtController@postComment')->name('user.post.comment');
-    Route::post('/replycomment/{cmt_id}','User\CmtController@postReplyComment')->name('user.post.replycomment');
+    Route::post('/replycomment','User\CmtController@postReplyComment')->name('user.post.replycomment');
 
     Route::get('/infouser','User\InfoController@getInfo')->name('user.get.infouser');
     Route::post('/postinfouser','User\InfoController@postInfo')->name('user.post.infouser');
@@ -46,20 +46,23 @@ Route::group(['prefix' => 'user'], function () {
     
 });
 Route::group(['prefix' => 'admin'], function () {
-    
-    Route::get('/','Admin\ShowController@getDashboard')->name('admin.get.dashboard');
-    Route::get('/post','Admin\ShowController@getPost')->name('admin.get.post');
 
-    Route::get('/create','Admin\CreateController@getCreate')->name('admin.get.create');
-    Route::post('/create','Admin\CreateController@postCreate')->name('admin.post.create');
+    Route::get('/createadmin','Admin\xxxxxx@getAdmin');
+    Route::get('/','Admin\LoginController@getLogin')->name('admin.get.login');
+    Route::post('/postloginadmin','Admin\LoginController@postLogin')->name('admin.post.login');
+    Route::get('/logoutadmin','Admin\LoginController@getLogout')->name('admin.get.logout');
+    
+    Route::get('/dashboard','Admin\ShowController@getDashboard')->name('admin.get.dashboard');
+    Route::get('/post','Admin\ShowController@getPost')->name('admin.get.post');
+    Route::get('/comment','Admin\ShowController@getComment')->name('admin.get.comment');
+
+    Route::post('/addmember','Admin\MemberController@postMember')->name('admin.post.member');
 
     Route::get('/add','Admin\PostController@getAdd')->name('admin.get.add');
     Route::post('/postadd','Admin\PostController@postAdd')->name('admin.post.add');
-
     Route::get('/edit/{id}','Admin\PostController@getEdit')->name('admin.get.edit');
     Route::get('/edit/delete/img/{id}','Admin\PostController@getDeleteimg')->name('admin.get.delete.img');
     Route::post('/postedit/{id}','Admin\PostController@postEdit')->name('admin.post.edit');
-
     Route::get('/delete/post/{id}','Admin\PostController@getDelete')->name('admin.get.delete');
 
 });

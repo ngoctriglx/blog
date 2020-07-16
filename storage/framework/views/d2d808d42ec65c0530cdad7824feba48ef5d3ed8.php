@@ -105,63 +105,27 @@
 
   <div>
     <div class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-2">
-            <h1>Point</h1>
-            <hr />
+      <div class="row">
+        <div class="col-6">
+          <div class="member" style="padding-left: 450px">
             <p>Nguyễn Thái Long</p>
             <p>Nguyễn Hoài Nam</p>
             <p>Trần Ngọc Trí</p>
           </div>
-          <div class="col-md-2">
-            <h3>Lorem....</h3>
-            <span>
-              Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit.
-              Phasellus felis mi, euismod
-              rhoncus dictum eu, tempor et
-              purus. Integer interdum feugiat
-            </span>
-          </div>
-          <div class="col-md-2">
-            <h3>Lorem....</h3>
-            <span>
-              Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit.
-              Phasellus felis mi, euismod
-              rhoncus dictum eu, tempor et
-              purus. Integer interdum feugiat
-            </span>
-          </div>
-          <div class="col-md-2">
-            <h3>Lorem....</h3>
-            <span>
-              Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit.
-              Phasellus felis mi, euismod
-              rhoncus dictum eu, tempor et
-              purus. Integer interdum feugiat
-            </span>
-          </div>
-          <div class="col-md-4">
-            <h3>FOLLOW BY EMAIL</h3>
-            <div class="input-group mb-2 mt-2">
-              <input style="width: 70%" type="text" class="form-control" placeholder="Email address...">
-              <button class="btn btn-warning" type="button">Submit</button>
-            </div>
-            <span>
-              Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit.
-              Phasellus felis mi, euismod
-              rhoncus dictum eu, tempor et
-              purus. Integer interdum feugiat
-            </span>
+        </div>
+        <div class="col-6">
+          <div class="member" style="padding-left: 80px">
+            <p><i class="fab fa-facebook "></i>&emsp;Facebook</p>
+            <p><i class="fab fa-twitter"></i>&emsp;Twitter</p>
+            <p><i class="fab fa-youtube"></i>&emsp;Youtube</p>
           </div>
         </div>
       </div>
+      <hr class="hr-footer" />
+      <span class="text-footer">© Copyright Sidetracked Ltd 2020.</span>
     </div>
   </div>
+
   <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
     integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
@@ -178,6 +142,11 @@
     window.onload = alert('<?php echo e(session('alert')); ?>');
   </script>
   <?php endif; ?>
+  <script>
+    function logout(){
+      window.location.replace("https://localhost/blog/public/user/logoutuser");
+  }
+  </script>
   <?php echo $__env->yieldContent('script'); ?>
 </body>
 

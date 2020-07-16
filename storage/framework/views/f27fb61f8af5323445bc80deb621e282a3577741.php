@@ -87,7 +87,7 @@
           <form action="" id="comment" data-id="<?php echo e($post->id); ?>" method="POST">
             <?php echo csrf_field(); ?>
             <div style="margin-top: 15px;">
-              <textarea id="content1" name="content1" required style="height: 100px;"
+              <textarea id="content" name="content" required style="height: 100px;"
                 class="form-control media-body u-shadow-v18 g-bg-secondary" placeholder="Comment"></textarea>
               <div style="margin-top: 15px;">
                 <div class="row">
@@ -160,10 +160,11 @@
 
                           <?php endif; ?></h5>
                       </div>
-                      <form action="<?php echo e(route('user.post.replycomment',$valcmt->id)); ?>" method="POST">
+                      <form action="" method="POST">
+                      
                         <?php echo csrf_field(); ?>
                         <div style="margin-top: 15px;">
-                          <textarea style="height: 130px;" name="content2" required
+                          <textarea style="height: 130px;" id="content<?php echo e($key); ?>" name="content<?php echo e($key); ?>" required
                             class="form-control media-body u-shadow-v18 g-bg-secondary"
                             placeholder="comment"></textarea>
                           <div style="margin-top: 15px;">
@@ -171,7 +172,7 @@
                               <div class="col-md-8">
                               </div>
                               <div class="col-md-4">
-                                <button style="margin-left: 56px;" type="submit"
+                                <button onclick="replycomment(<?php echo e($valcmt->id); ?>,<?php echo e($key); ?>)" type="button" style="margin-left: 56px;" 
                                   class="btn btn-primary">Comment</button>
                               </div>
                             </div>
@@ -180,7 +181,6 @@
                       </form>
                     </div>
                   </div>
-
                   <?php $__currentLoopData = $replycmt; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valreplycmt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php $__currentLoopData = $infocmt; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valinfocmt1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php if($valreplycmt->comment_id === $valcmt->id): ?>
@@ -367,7 +367,7 @@
   $(document).ready(function(e){
       $("#comment").submit(function(e){
         const post_id = $(this).attr("data-id");
-        const content = $("#content1").val();
+        const content = $("#content").val();
         e.preventDefault();
         const formData = new FormData();
         formData.append('post_id',post_id);
@@ -385,13 +385,42 @@
             processData: false,
             cache:false,
             success:function(data) {
+              alert(data.error);
             }
         });
         location.reload();
       });
-      
   });
 </script>
+  <script>
+    function replycomment(cmt_id,keycmt){
+      console.log(cmt_id)
+      console.log(keycmt)
+      const content = $("#content"+keycmt).val();
+      console.log(content)
+     
+      const formData = new FormData();
+      formData.append('cmt_id',cmt_id);
+      formData.append('content',content);
+      $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:"<?php echo e(route('user.post.replycomment')); ?>",
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache:false,
+            success:function(data) {
+              alert(data.error);
+            }
+        });
+        location.reload();
+      }
+  </script>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" 
 src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=660344757451291&autoLogAppEvents=1"></script>

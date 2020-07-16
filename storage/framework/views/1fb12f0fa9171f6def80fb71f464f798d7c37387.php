@@ -17,9 +17,6 @@
 </head>
 
 <body>
-    <?php if(Auth::guard('admin')->check()): ?>
-
-    
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
@@ -104,14 +101,13 @@
                                             <h6 tabindex="-1" class="dropdown-header">Header</h6>
                                             <button type="button" tabindex="0" class="dropdown-item">Actions</button>
                                             <div tabindex="-1" class="dropdown-divider"></div>
-                                            <button type="button" onclick="logout()" tabindex="0" class="dropdown-item">Logout</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                       <?php echo e(Auth::guard('admin')->user()->name); ?>
-
+                                        Alina Mclourd
                                     </div>
                                     <div class="widget-subheading">
                                         VP People Manager
@@ -196,9 +192,9 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo e(route('admin.get.comment')); ?>">
+                                    <a href="category.html">
                                         <i class="metismenu-icon fa fa-th-large">
-                                        </i>Comment
+                                        </i>Chủ đề
                                     </a>
                                 </li>
                                 <li>
@@ -230,13 +226,7 @@
         window.onload = alert('<?php echo e(session('alert')); ?>');
     </script>
     <?php endif; ?>
-    <script>
-        function logout(){
-          window.location.replace("https://localhost/blog/public/admin/logoutadmin");
-      }
-      </script>
     <?php echo $__env->yieldContent('script'); ?>
-    <?php endif; ?>
 </body>
 
-</html><?php /**PATH E:\xampp\htdocs\blog\resources\views/admin/master.blade.php ENDPATH**/ ?>
+</html><?php /**PATH E:\xampp\htdocs\blog3\resources\views/admin/master.blade.php ENDPATH**/ ?>

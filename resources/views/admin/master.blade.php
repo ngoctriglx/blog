@@ -17,6 +17,9 @@
 </head>
 
 <body>
+    @if (Auth::guard('admin')->check())
+
+    
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
@@ -101,13 +104,13 @@
                                             <h6 tabindex="-1" class="dropdown-header">Header</h6>
                                             <button type="button" tabindex="0" class="dropdown-item">Actions</button>
                                             <div tabindex="-1" class="dropdown-divider"></div>
-                                            <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+                                            <button type="button" onclick="logout()" tabindex="0" class="dropdown-item">Logout</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        Alina Mclourd
+                                       {{ Auth::guard('admin')->user()->name}}
                                     </div>
                                     <div class="widget-subheading">
                                         VP People Manager
@@ -192,9 +195,9 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="category.html">
+                                    <a href="{{route('admin.get.comment')}}">
                                         <i class="metismenu-icon fa fa-th-large">
-                                        </i>Chủ đề
+                                        </i>Comment
                                     </a>
                                 </li>
                                 <li>
@@ -226,7 +229,13 @@
         window.onload = alert('{{session('alert')}}');
     </script>
     @endif
+    <script>
+        function logout(){
+          window.location.replace("https://localhost/blog/public/admin/logoutadmin");
+      }
+      </script>
     @yield('script')
+    @endif
 </body>
 
 </html>
