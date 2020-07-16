@@ -70,14 +70,16 @@ class PostController extends Controller
         $post_id = $post->id;
 
         $images = $request->file('images');
-        foreach ($images as $key => $image) {
-            $extension = $image->getClientOriginalExtension();
-            $name = $post_id.Str::random(30).'.'.$extension;
-            $image->move(public_path().'/uploads/imgpost/', $name);
-            $imgpost = new Imgpost;
-            $imgpost['post_id'] = $post_id;
-            $imgpost['link_img'] = $name;
-            $imgpost->save();
+        if (!empty($images)) {
+            foreach ($images as $key => $image) {
+                $extension = $image->getClientOriginalExtension();
+                $name = $post_id.Str::random(30).'.'.$extension;
+                $image->move(public_path().'/uploads/imgpost/', $name);
+                $imgpost = new Imgpost;
+                $imgpost['post_id'] = $post_id;
+                $imgpost['link_img'] = $name;
+                $imgpost->save();
+            }
         }
         return back()->with('error','Thêm bài viết thành công !');  
     }
@@ -85,8 +87,9 @@ class PostController extends Controller
         DB::table('post')->where('id', $id)->delete();
         return back();
     }
-    public function getDeleteimg($id){
-        DB::table('imgpost')->where('id',$id)->delete();
-        return response()->json(['success'=>'Xóa thành công.']);
+    public function postDeleteimg(Request $request){
+        $img_id = $request->input('id');
+        DB::table('imgpost')->where('id',$img_id)->delete();
+        return response()->json(['success'=>'Xóa ảnh thành công.']);
     }
 }

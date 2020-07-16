@@ -78,14 +78,17 @@
                     <div><button type="button" id="resetimg">Reset ảnh</button></div>
                     <div>
                         @foreach ($imgpost as $key => $valimgpost)
-                        <span class="pip">
-                            <div id="abc{{$valimgpost->id}}">
-                                <img class="imageThumb" style="width:128px;height:128px;"
-                                    src="{{asset('/uploads/imgpost/'.$valimgpost->link_img)}}">
-                                <br><span class="img-delete" data-id="{{$valimgpost->id}}"
-                                    key-id="{{$key}}">Remove</span>
-                            </div>
-                        </span>
+                        <form action="" method="POST">
+                            @csrf
+                            <span class="pip">
+                                <div id="abc{{$valimgpost->id}}">
+                                    <img class="imageThumb" style="width:128px;height:128px;"
+                                        src="{{asset('/uploads/imgpost/'.$valimgpost->link_img)}}">
+                                    <br><span class="img-delete" data-id="{{$valimgpost->id}}"
+                                        key-id="{{$key}}">Remove</span>
+                                </div>
+                            </span>
+                        </form>
                         @endforeach
                         <div id="showImage"></div>
                     </div>
@@ -101,21 +104,25 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(e){
-        $(".img-delete").click(function(){
+        $(".img-delete").click(function(e){
             var id = $(this).attr("data-id");
             var key = $(this).attr("key-id");
             var result = confirm("Bạn có muốn xóa ảnh số "+key+" ?");
             if (result == true) {
+                e.preventDefault();
+                var id = $(this).attr("data-id");
                 $("div#abc"+id).remove();
-                
+                var formData = new FormData();
+                formData.append('id',id);
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
                 $.ajax({
-                    type:'GET',
-                    url:'http://localhost/blog/public/admin/edit/delete/img/'+id,
+                    type:'POST',
+                    url:"{{route('admin.post.delete.img')}}",
+                    data: formData,
                     contentType: false,
                     processData: false,
                     cache:false,

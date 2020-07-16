@@ -6,17 +6,16 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'AdminSeeder' => $baseDir . '/database/seeds/AdminSeeder.php',
-    'App\\Admin' => $baseDir . '/app/Admin.php',
     'App\\Cmt' => $baseDir . '/app/Cmt.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\Admin\\CommentController' => $baseDir . '/app/Http/Controllers/Admin/CommentController.php',
     'App\\Http\\Controllers\\Admin\\LoginController' => $baseDir . '/app/Http/Controllers/Admin/LoginController.php',
     'App\\Http\\Controllers\\Admin\\PostController' => $baseDir . '/app/Http/Controllers/Admin/PostController.php',
     'App\\Http\\Controllers\\Admin\\ShowController' => $baseDir . '/app/Http/Controllers/Admin/ShowController.php',
+    'App\\Http\\Controllers\\Admin\\xxxxxx' => $baseDir . '/app/Http/Controllers/Admin/xxxxxx.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\Home\\ShowController' => $baseDir . '/app/Http/Controllers/Home/ShowController.php',
-    'App\\Http\\Controllers\\LikepostController' => $baseDir . '/app/Http/Controllers/LikepostController.php',
     'App\\Http\\Controllers\\User\\CmtController' => $baseDir . '/app/Http/Controllers/User/CmtController.php',
     'App\\Http\\Controllers\\User\\InfoController' => $baseDir . '/app/Http/Controllers/User/InfoController.php',
     'App\\Http\\Controllers\\User\\LikeShareController' => $baseDir . '/app/Http/Controllers/User/LikeShareController.php',
@@ -42,6 +41,7 @@ return array(
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Replycmt' => $baseDir . '/app/Replycmt.php',
     'App\\User' => $baseDir . '/app/User.php',
+    'App\\admin' => $baseDir . '/app/admin.php',
     'Asm89\\Stack\\Cors' => $vendorDir . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
     'Asm89\\Stack\\CorsService' => $vendorDir . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',
     'Botble\\Assets\\Assets' => $vendorDir . '/botble/assets/src/Assets.php',

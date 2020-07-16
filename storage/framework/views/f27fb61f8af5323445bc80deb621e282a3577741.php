@@ -28,11 +28,10 @@
           </div>
         </div>
         <div class="title-blog-detail">
-          <h2><span><?php echo e($post->place); ?></span></h2>
+          <h2><span><?php echo e($post->title); ?></span></h2>
         </div>
         <div class="tile-content">
-          <strong> # </strong> <?php echo e($post->title); ?>
-
+          
         </div>
         <hr class="hr-content" />
         <div class="wrap-content">
@@ -45,11 +44,12 @@
           <?php $__currentLoopData = $imgpost; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valimgpost): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <?php if($valimgpost->post_id === $post->id): ?>
           
-          <div class="gallery">
-            <a target="_blank" href="<?php echo e(asset('uploads/imgpost/'.$valimgpost->link_img)); ?>">
-              <img src="<?php echo e(asset('uploads/imgpost/'.$valimgpost->link_img)); ?>" alt="image content">
-            </a>
-            
+          <div style="display: flex; justify-content: center">
+            <div class="gallery">
+              <a target="_blank" href="<?php echo e(asset('uploads/imgpost/'.$valimgpost->link_img)); ?>">
+                <img src="<?php echo e(asset('uploads/imgpost/'.$valimgpost->link_img)); ?>" alt="image content">
+              </a>
+            </div>
           </div>
           <?php endif; ?>
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -58,14 +58,23 @@
               <?php echo csrf_field(); ?>
               <?php if(Auth::check()): ?>
               <?php if(!empty($likepost)): ?>
-              <span class="like" data-id="<?php echo e($post->id); ?>"><i id="like" style="color:red;" class="fa fa-heart"></i></span>
+              <span class="like" data-id="<?php echo e($post->id); ?>"><i id="like" style="color:red;" class="fa fa-heart">
+                  <?php if($sllike !=0): ?>
+                  <?php echo e($sllike); ?>
+
+                  <?php endif; ?>
+                </i></span>
               <?php else: ?>
-              <span class="like" data-id="<?php echo e($post->id); ?>"><i id="like" style="color:black ;"
-                  class="fa fa-heart"></i></span>
+              <span class="like" data-id="<?php echo e($post->id); ?>"><i id="like" style="color:blue ;" class="fa fa-heart">
+                  <?php if($sllike !=0): ?>
+                  <?php echo e($sllike); ?>
+
+                  <?php endif; ?>
+                </i></span>
               <?php endif; ?>
               
-              <span class="fb-share-button" data-href="<?php echo e($urlshare); ?>"
-              data-layout="button" data-size="small"><i style="color: blue;" class="fa fa-share"></i></span>
+              <span class="fb-share-button" data-href="<?php echo e($urlshare); ?>" data-layout="button" data-size="small"><i
+                  style="color: blue;" class="fa fa-share"></i></span>
               <?php else: ?>
               <h3 style="color: blue">Đăng nhập để like và chia sẽ bài viết</h3>
               <?php endif; ?>
@@ -75,10 +84,11 @@
         </div>
 
         
-        <img class="d-flex g-width-50 g-height-50 rounded-circle" <?php if(Auth::check()): ?>
-          src="<?php echo e(asset('/uploads/imguser/'.$info->avatar)); ?>" <?php else: ?> src="<?php echo e(asset('/uploads/imguser/login.jpg')); ?>" <?php endif; ?>
-          alt="Image Description">
-        <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+
+        <div class="u-shadow-v18 g-bg-secondary g-pa-30">
+          <img class="d-flex g-width-50 g-height-50 rounded-circle" <?php if(Auth::check()): ?>
+            src="<?php echo e(asset('/uploads/imguser/'.$info->avatar)); ?>" <?php else: ?> src="<?php echo e(asset('/uploads/imguser/login.jpg')); ?>"
+            <?php endif; ?> alt="Image Description">
           <div class="g-mb-15">
             <h5 class="h5 g-color-gray-dark-v1 mb-0">
               <?php if(Auth::check()): ?><?php echo e($info->name); ?><?php endif; ?>
@@ -88,7 +98,7 @@
             <?php echo csrf_field(); ?>
             <div style="margin-top: 15px;">
               <textarea id="content" name="content" required style="height: 100px;"
-                class="form-control media-body u-shadow-v18 g-bg-secondary" placeholder="Comment"></textarea>
+                class="form-control u-shadow-v18 g-bg-secondary" placeholder="Comment"></textarea>
               <div style="margin-top: 15px;">
                 <div class="row">
                   <div class="col-md-4">
@@ -100,7 +110,9 @@
           </form>
         </div>
         <div class="wrap-comment">
-          <h2><?php echo e($sumcmt); ?> COMMENT</h2>
+          <?php if($sumcmt !== 0): ?>
+          <h2><?php echo e($sumcmt); ?> Bình luận</h2>
+          <?php endif; ?>
 
           <!-- comment -->
           <?php $__currentLoopData = $cmt; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $valcmt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -108,7 +120,7 @@
           <?php if($valcmt->user_id === $valinfocmt->user_id): ?>
           <div class="row">
             <div class="col-md-12">
-              <div class="media g-mb-30 media-comment">
+              <div class="media g-mb-30 media-comment" style="padding: 30px 0">
                 <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
                   src="<?php echo e(asset('/uploads/imguser/'.$valinfocmt->avatar)); ?>" alt="Image Description">
                 <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
@@ -121,24 +133,23 @@
                   <p><?php echo e($valcmt->content); ?></p>
 
                   <ul class="list-inline d-sm-flex my-0">
-                    <li class="list-inline-item g-mr-20">
-                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                        <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
-                        178
-                      </a>
-                    </li>
-                    <li class="list-inline-item g-mr-20">
-                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                        <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
-                        34
-                      </a>
-                    </li>
+                    
                     <li class="list-inline-item ml-auto">
                       <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
                         <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
-                        Reply
+                        <button type="button" class="btn btn-link" onclick="reply(<?php echo e($valcmt->id); ?>)" data-id="">Trả
+                          lời</button>
                       </a>
                     </li>
+                    <form action="" method="POST">
+                      <?php echo csrf_field(); ?>
+                    <li class="list-inline-item ml-auto">
+                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                        <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                        <button type="button" class="btn btn-link" onclick="repost('comment',<?php echo e($valcmt->id); ?>)" data-id="">Repost</button>
+                      </a>
+                    </li>
+                  </form>
                   </ul>
                 </div>
               </div>
@@ -147,12 +158,16 @@
               <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-10">
-                  <div class="media g-mb-30 media-comment">
-                    <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" <?php if(Auth::check()): ?>
-                      src="<?php echo e(asset('/uploads/imguser/'.$info->avatar)); ?>" <?php else: ?>
-                      src="<?php echo e(asset('/uploads/imguser/login.jpg')); ?>" <?php endif; ?> alt="Image Description">
-                    <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                      <div class="text-right"><i class="fa fa-times-circle"></i>
+                  <div class="media g-mb-30 media-comment" id="reply<?php echo e($valcmt->id); ?>" style="display: none">
+                    <div class="u-shadow-v18 g-bg-secondary g-pa-30">
+                      <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" <?php if(Auth::check()): ?>
+                        src="<?php echo e(asset('/uploads/imguser/'.$info->avatar)); ?>" <?php else: ?>
+                        src="<?php echo e(asset('/uploads/imguser/login.jpg')); ?>" <?php endif; ?> alt="Image Description">
+                      <div class="text-right"><i style="position: relative;
+                        top: -50px;
+                        font-size: 20px;
+                        cursor: pointer;" onclick="reply(<?php echo e($valcmt->id); ?>)"
+                          class="fa fa-times-circle comment-icon-x"></i>
                       </div>
                       <div class="g-mb-15">
                         <h5 class="h5 g-color-gray-dark-v1 mb-0"><?php if(Auth::check()): ?>
@@ -161,19 +176,18 @@
                           <?php endif; ?></h5>
                       </div>
                       <form action="" method="POST">
-                      
+                        
                         <?php echo csrf_field(); ?>
                         <div style="margin-top: 15px;">
-                          <textarea style="height: 130px;" id="content<?php echo e($key); ?>" name="content<?php echo e($key); ?>" required
-                            class="form-control media-body u-shadow-v18 g-bg-secondary"
-                            placeholder="comment"></textarea>
+                          <textarea style="height: 130px; width: 555px" id="content<?php echo e($key); ?>" name="content<?php echo e($key); ?>"
+                            required class="form-control u-shadow-v18 g-bg-secondary" placeholder="comment"></textarea>
                           <div style="margin-top: 15px;">
                             <div class="row">
                               <div class="col-md-8">
                               </div>
                               <div class="col-md-4">
-                                <button onclick="replycomment(<?php echo e($valcmt->id); ?>,<?php echo e($key); ?>)" type="button" style="margin-left: 56px;" 
-                                  class="btn btn-primary">Comment</button>
+                                <button onclick="replycomment(<?php echo e($valcmt->id); ?>,<?php echo e($key); ?>)" type="button"
+                                  style="margin-left: 40px;" class="btn btn-primary">Comment</button>
                               </div>
                             </div>
                           </div>
@@ -185,7 +199,7 @@
                   <?php $__currentLoopData = $infocmt; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valinfocmt1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php if($valreplycmt->comment_id === $valcmt->id): ?>
                   <?php if($valreplycmt->user_id === $valinfocmt1->user_id): ?>
-                  <div class="media g-mb-30 media-comment">
+                  <div class="media g-mb-30 media-comment" style="padding: 30px 0">
                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
                       src="<?php echo e(asset('/uploads/imguser/'.$valinfocmt1->avatar)); ?>" alt="Image Description">
                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
@@ -210,6 +224,15 @@
                             34
                           </a>
                         </li>
+                        <form action="" method="POST">
+                          <?php echo csrf_field(); ?>
+                        <li class="list-inline-item ml-auto">
+                          <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                            <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                            <button type="button" class="btn btn-link" onclick="repost('replycomment',<?php echo e($valreplycmt->id); ?>)" data-id="">Repost</button>
+                          </a>
+                        </li>
+                      </form>
                       </ul>
                     </div>
                   </div>
@@ -231,16 +254,19 @@
         <div class="interactive">
           <div>
             <h2>SUBSCRIBE</h2>
-            <div class="wrap-avatar-square">
-              <img class="avatar-square"
-                src="https://images.unsplash.com/photo-1592218636432-1fcfb03707dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                alt="interactive-avatar" />
-              <div class="child">
-                <code>Viet Nam Travel</code>
-                <button><i class="fab fa-youtube">&nbsp;YouTube</i></button>
-                <div class="followers"><a href="/">40k</a></div>
-              </div>
+            <div style="display: flex; justify-content: center;">
+              <video width="300" height="180" controls>
+                <source src="https://youtu.be/_2QbXjLkRug" type="video/mp4">
+                <source src="https://youtu.be/_2QbXjLkRug" type="video/ogg">
+              </video>
             </div>
+            <div style="margin-top: 20px; display: flex; justify-content: center;">
+              <a href="https://www.youtube.com/">
+                <button style="width: 300px" type="button" class="btn btn-danger"><i class="fab fa-youtube">&nbsp;Đăng
+                    ký</i></button>
+              </a>
+            </div>
+            
           </div>
           <div>
             <h2>ABOUT</h2>
@@ -293,8 +319,10 @@
                   </div>
                 </div>
                 <div class="button-instagram">
-                  <button type="button" class="btn btn-primary"><i class="fab fa-instagram"></i>&nbsp;Follow
-                    Instagram</button>
+                  <a href="https://www.instagram.com/">
+                    <button type="button" class="btn btn-primary"><i class="fab fa-instagram"></i>&nbsp;Follow
+                      Instagram</button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -314,13 +342,13 @@
     $(".like").click(function(e){
       var id = document.getElementById('like');
       var post_id = $(this).attr("data-id");
-      if(id.style.color === "black"){
+      if(id.style.color === "blue"){
         id.style.color = "red";
         const status = "like";
         likeFunction(status);
       }else{
         if(id.style.color === "red"){
-          id.style.color = "black";
+          id.style.color = "blue";
           const status = "disklike";
           likeFunction(status);
         }
@@ -347,6 +375,7 @@
                
           }
         });
+        location.reload();
       }
     });
     
@@ -392,12 +421,9 @@
       });
   });
 </script>
-  <script>
-    function replycomment(cmt_id,keycmt){
-      console.log(cmt_id)
-      console.log(keycmt)
+<script>
+  function replycomment(cmt_id,keycmt){
       const content = $("#content"+keycmt).val();
-      console.log(content)
      
       const formData = new FormData();
       formData.append('cmt_id',cmt_id);
@@ -420,9 +446,44 @@
         });
         location.reload();
       }
-  </script>
+</script>
+<script>
+  function reply(cmt_id) {
+      var x = document.getElementById("reply"+cmt_id);
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
+</script>
+<script>
+  function repost(status,id){
+    const formData = new FormData();
+      formData.append('cmt_id',id);
+      formData.append('status',status);
+      $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:"<?php echo e(route('user.post.repostcomment')); ?>",
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache:false,
+            success:function(data) {
+              alert(data.success);
+            }
+        });
+        
+  }
+</script>
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" 
-src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=660344757451291&autoLogAppEvents=1"></script>
+<script async defer crossorigin="anonymous"
+  src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=660344757451291&autoLogAppEvents=1">
+</script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('home.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\xampp\htdocs\blog\resources\views/home/blogdetail.blade.php ENDPATH**/ ?>

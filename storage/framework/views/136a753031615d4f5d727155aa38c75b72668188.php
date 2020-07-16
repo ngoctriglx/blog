@@ -28,8 +28,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Tiêu đề</th>
                                     <th scope="col">Người đăng bài</th>
-                                    <th scope="col">Nội dung</th>
-                                    <th scope="col">Bình luận</th>
+                                    <th scope="col">Lượt xem</th>
                                     <th scope="col">Ngày tạo</th>
                                     <th scope="col">Xử lí</th>
                                 </tr>
@@ -39,9 +38,8 @@
                                 <tr>
                                     <th scope="row"><?php echo e($key); ?></th>
                                     <td><?php echo e($valpost->sub_title); ?></td>
-                                    <td><?php echo e($valpost->author); ?>o</td>
-                                    <td><?php echo e($valpost->content); ?></td>
-                                    <td>1</td>
+                                    <td><?php echo e($valpost->author); ?></td>
+                                    <td><?php echo e($valpost->view); ?></td>
                                     <td><?php echo e($valpost->updated_at); ?></td>
                                     <td>
                                         <a class="f_pc" href="<?php echo e(route('home.get.blogdetail',['id'=>$valpost->id,'title'=>$valpost->title])); ?>">
@@ -55,9 +53,10 @@
                                             <button type="button" onclick="myDeletepost('<?php echo e($valpost->sub_title); ?>',<?php echo e($valpost->id); ?>)" class="btn btn-danger">Xóa</button>
                                     </td>
                                 </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                            
                             </tbody>
                         </table>
+                        <div><?php echo e($post->links()); ?></div>
                     </div>
             </div>
         </div>

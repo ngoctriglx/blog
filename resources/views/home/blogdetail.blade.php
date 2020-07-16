@@ -28,10 +28,10 @@
           </div>
         </div>
         <div class="title-blog-detail">
-          <h2><span>{{$post->place}}</span></h2>
+          <h2><span>{{$post->title}}</span></h2>
         </div>
         <div class="tile-content">
-          <strong> # </strong> {{$post->title}}
+          {{--  <strong> # </strong> {{$post->title}}  --}}
         </div>
         <hr class="hr-content" />
         <div class="wrap-content">
@@ -44,11 +44,12 @@
           @if ($valimgpost->post_id === $post->id)
           {{--  <div class="image-content">
           </div>  --}}
-          <div class="gallery">
-            <a target="_blank" href="{{asset('uploads/imgpost/'.$valimgpost->link_img)}}">
-              <img src="{{asset('uploads/imgpost/'.$valimgpost->link_img)}}" alt="image content">
-            </a>
-            {{--  <div class="desc">Add a description of the image here</div>  --}}
+          <div style="display: flex; justify-content: center">
+            <div class="gallery">
+              <a target="_blank" href="{{asset('uploads/imgpost/'.$valimgpost->link_img)}}">
+                <img src="{{asset('uploads/imgpost/'.$valimgpost->link_img)}}" alt="image content">
+              </a>
+            </div>
           </div>
           @endif
           @endforeach
@@ -57,14 +58,21 @@
               @csrf
               @if (Auth::check())
               @if (!empty($likepost))
-              <span class="like" data-id="{{$post->id}}"><i id="like" style="color:red;" class="fa fa-heart"></i></span>
+              <span class="like" data-id="{{$post->id}}"><i id="like" style="color:red;" class="fa fa-heart">
+                  @if($sllike !=0)
+                  {{$sllike}}
+                  @endif
+                </i></span>
               @else
-              <span class="like" data-id="{{$post->id}}"><i id="like" style="color:black ;"
-                  class="fa fa-heart"></i></span>
+              <span class="like" data-id="{{$post->id}}"><i id="like" style="color:blue ;" class="fa fa-heart">
+                  @if($sllike !=0)
+                  {{$sllike}}
+                  @endif
+                </i></span>
               @endif
               {{-- <span><i style="color: orange;" class="fa fa-bookmark"></i></span> --}}
-              <span class="fb-share-button" data-href="{{$urlshare}}"
-              data-layout="button" data-size="small"><i style="color: blue;" class="fa fa-share"></i></span>
+              <span class="fb-share-button" data-href="{{$urlshare}}" data-layout="button" data-size="small"><i
+                  style="color: blue;" class="fa fa-share"></i></span>
               @else
               <h3 style="color: blue">Đăng nhập để like và chia sẽ bài viết</h3>
               @endif
@@ -74,10 +82,11 @@
         </div>
 
         {{-- comment  --}}
-        <img class="d-flex g-width-50 g-height-50 rounded-circle" @if(Auth::check())
-          src="{{asset('/uploads/imguser/'.$info->avatar)}}" @else src="{{asset('/uploads/imguser/login.jpg')}}" @endif
-          alt="Image Description">
-        <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+
+        <div class="u-shadow-v18 g-bg-secondary g-pa-30">
+          <img class="d-flex g-width-50 g-height-50 rounded-circle" @if(Auth::check())
+            src="{{asset('/uploads/imguser/'.$info->avatar)}}" @else src="{{asset('/uploads/imguser/login.jpg')}}"
+            @endif alt="Image Description">
           <div class="g-mb-15">
             <h5 class="h5 g-color-gray-dark-v1 mb-0">
               @if(Auth::check()){{$info->name}}@endif
@@ -87,7 +96,7 @@
             @csrf
             <div style="margin-top: 15px;">
               <textarea id="content" name="content" required style="height: 100px;"
-                class="form-control media-body u-shadow-v18 g-bg-secondary" placeholder="Comment"></textarea>
+                class="form-control u-shadow-v18 g-bg-secondary" placeholder="Comment"></textarea>
               <div style="margin-top: 15px;">
                 <div class="row">
                   <div class="col-md-4">
@@ -99,7 +108,9 @@
           </form>
         </div>
         <div class="wrap-comment">
-          <h2>{{$sumcmt}} COMMENT</h2>
+          @if ($sumcmt !== 0)
+          <h2>{{$sumcmt}} Bình luận</h2>
+          @endif
 
           <!-- comment -->
           @foreach($cmt as $key => $valcmt)
@@ -107,7 +118,7 @@
           @if($valcmt->user_id === $valinfocmt->user_id)
           <div class="row">
             <div class="col-md-12">
-              <div class="media g-mb-30 media-comment">
+              <div class="media g-mb-30 media-comment" style="padding: 30px 0">
                 <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
                   src="{{asset('/uploads/imguser/'.$valinfocmt->avatar)}}" alt="Image Description">
                 <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
@@ -120,7 +131,7 @@
                   <p>{{$valcmt->content}}</p>
 
                   <ul class="list-inline d-sm-flex my-0">
-                    <li class="list-inline-item g-mr-20">
+                    {{--  <li class="list-inline-item g-mr-20">
                       <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
                         <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
                         178
@@ -131,13 +142,23 @@
                         <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
                         34
                       </a>
-                    </li>
+                    </li>  --}}
                     <li class="list-inline-item ml-auto">
                       <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
                         <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
-                        Reply
+                        <button type="button" class="btn btn-link" onclick="reply({{$valcmt->id}})" data-id="">Trả
+                          lời</button>
                       </a>
                     </li>
+                    <form action="" method="POST">
+                      @csrf
+                    <li class="list-inline-item ml-auto">
+                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                        <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                        <button type="button" class="btn btn-link" onclick="repost('comment',{{$valcmt->id}})" data-id="">Repost</button>
+                      </a>
+                    </li>
+                  </form>
                   </ul>
                 </div>
               </div>
@@ -146,12 +167,16 @@
               <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-10">
-                  <div class="media g-mb-30 media-comment">
-                    <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" @if(Auth::check())
-                      src="{{asset('/uploads/imguser/'.$info->avatar)}}" @else
-                      src="{{asset('/uploads/imguser/login.jpg')}}" @endif alt="Image Description">
-                    <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                      <div class="text-right"><i class="fa fa-times-circle"></i>
+                  <div class="media g-mb-30 media-comment" id="reply{{$valcmt->id}}" style="display: none">
+                    <div class="u-shadow-v18 g-bg-secondary g-pa-30">
+                      <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" @if(Auth::check())
+                        src="{{asset('/uploads/imguser/'.$info->avatar)}}" @else
+                        src="{{asset('/uploads/imguser/login.jpg')}}" @endif alt="Image Description">
+                      <div class="text-right"><i style="position: relative;
+                        top: -50px;
+                        font-size: 20px;
+                        cursor: pointer;" onclick="reply({{$valcmt->id}})"
+                          class="fa fa-times-circle comment-icon-x"></i>
                       </div>
                       <div class="g-mb-15">
                         <h5 class="h5 g-color-gray-dark-v1 mb-0">@if(Auth::check())
@@ -159,19 +184,18 @@
                           @endif</h5>
                       </div>
                       <form action="" method="POST">
-                      {{--  {{route('user.post.replycomment',$valcmt->id)}}  --}}
+                        {{--  {{route('user.post.replycomment',$valcmt->id)}} --}}
                         @csrf
                         <div style="margin-top: 15px;">
-                          <textarea style="height: 130px;" id="content{{$key}}" name="content{{$key}}" required
-                            class="form-control media-body u-shadow-v18 g-bg-secondary"
-                            placeholder="comment"></textarea>
+                          <textarea style="height: 130px; width: 555px" id="content{{$key}}" name="content{{$key}}"
+                            required class="form-control u-shadow-v18 g-bg-secondary" placeholder="comment"></textarea>
                           <div style="margin-top: 15px;">
                             <div class="row">
                               <div class="col-md-8">
                               </div>
                               <div class="col-md-4">
-                                <button onclick="replycomment({{$valcmt->id}},{{$key}})" type="button" style="margin-left: 56px;" 
-                                  class="btn btn-primary">Comment</button>
+                                <button onclick="replycomment({{$valcmt->id}},{{$key}})" type="button"
+                                  style="margin-left: 40px;" class="btn btn-primary">Comment</button>
                               </div>
                             </div>
                           </div>
@@ -183,7 +207,7 @@
                   @foreach ($infocmt as $valinfocmt1)
                   @if ($valreplycmt->comment_id === $valcmt->id)
                   @if ($valreplycmt->user_id === $valinfocmt1->user_id)
-                  <div class="media g-mb-30 media-comment">
+                  <div class="media g-mb-30 media-comment" style="padding: 30px 0">
                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
                       src="{{asset('/uploads/imguser/'.$valinfocmt1->avatar)}}" alt="Image Description">
                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
@@ -208,6 +232,15 @@
                             34
                           </a>
                         </li>
+                        <form action="" method="POST">
+                          @csrf
+                        <li class="list-inline-item ml-auto">
+                          <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                            <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                            <button type="button" class="btn btn-link" onclick="repost('replycomment',{{$valreplycmt->id}})" data-id="">Repost</button>
+                          </a>
+                        </li>
+                      </form>
                       </ul>
                     </div>
                   </div>
@@ -229,7 +262,19 @@
         <div class="interactive">
           <div>
             <h2>SUBSCRIBE</h2>
-            <div class="wrap-avatar-square">
+            <div style="display: flex; justify-content: center;">
+              <video width="300" height="180" controls>
+                <source src="https://youtu.be/_2QbXjLkRug" type="video/mp4">
+                <source src="https://youtu.be/_2QbXjLkRug" type="video/ogg">
+              </video>
+            </div>
+            <div style="margin-top: 20px; display: flex; justify-content: center;">
+              <a href="https://www.youtube.com/">
+                <button style="width: 300px" type="button" class="btn btn-danger"><i class="fab fa-youtube">&nbsp;Đăng
+                    ký</i></button>
+              </a>
+            </div>
+            {{--  <div class="wrap-avatar-square">
               <img class="avatar-square"
                 src="https://images.unsplash.com/photo-1592218636432-1fcfb03707dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                 alt="interactive-avatar" />
@@ -238,7 +283,7 @@
                 <button><i class="fab fa-youtube">&nbsp;YouTube</i></button>
                 <div class="followers"><a href="/">40k</a></div>
               </div>
-            </div>
+            </div>  --}}
           </div>
           <div>
             <h2>ABOUT</h2>
@@ -291,8 +336,10 @@
                   </div>
                 </div>
                 <div class="button-instagram">
-                  <button type="button" class="btn btn-primary"><i class="fab fa-instagram"></i>&nbsp;Follow
-                    Instagram</button>
+                  <a href="https://www.instagram.com/">
+                    <button type="button" class="btn btn-primary"><i class="fab fa-instagram"></i>&nbsp;Follow
+                      Instagram</button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -312,13 +359,13 @@
     $(".like").click(function(e){
       var id = document.getElementById('like');
       var post_id = $(this).attr("data-id");
-      if(id.style.color === "black"){
+      if(id.style.color === "blue"){
         id.style.color = "red";
         const status = "like";
         likeFunction(status);
       }else{
         if(id.style.color === "red"){
-          id.style.color = "black";
+          id.style.color = "blue";
           const status = "disklike";
           likeFunction(status);
         }
@@ -345,6 +392,7 @@
                {{-- alert(data.success);  --}}
           }
         });
+        location.reload();
       }
     });
     
@@ -390,12 +438,9 @@
       });
   });
 </script>
-  <script>
-    function replycomment(cmt_id,keycmt){
-      console.log(cmt_id)
-      console.log(keycmt)
+<script>
+  function replycomment(cmt_id,keycmt){
       const content = $("#content"+keycmt).val();
-      console.log(content)
      
       const formData = new FormData();
       formData.append('cmt_id',cmt_id);
@@ -418,8 +463,43 @@
         });
         location.reload();
       }
-  </script>
+</script>
+<script>
+  function reply(cmt_id) {
+      var x = document.getElementById("reply"+cmt_id);
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
+</script>
+<script>
+  function repost(status,id){
+    const formData = new FormData();
+      formData.append('cmt_id',id);
+      formData.append('status',status);
+      $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:"{{route('user.post.repostcomment')}}",
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache:false,
+            success:function(data) {
+              alert(data.success);
+            }
+        });
+        {{--  location.reload();  --}}
+  }
+</script>
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" 
-src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=660344757451291&autoLogAppEvents=1"></script>
+<script async defer crossorigin="anonymous"
+  src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=660344757451291&autoLogAppEvents=1">
+</script>
 @endsection

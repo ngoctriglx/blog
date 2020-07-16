@@ -1,38 +1,3 @@
-{{--  @extends('home.master')
-@section('css')
-  <link type="text/css" href="{{ asset('css/login.css')}}" rel="stylesheet">
-@endsection
-@section('title','Login')
-@section('content')
-<form  action="/action_page.php" method="post">
-    
-    <div class="container_login">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        
-      <button type="submit">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="container_login" style="background-color:#f1f1f1">
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-    <div class="container_login">
-        <a href="{{url('/users/loginfacebook/facebook')}}">LoginFacebook</a>
-        <a href="{{url('/users/logingoogle/google')}}">LoginGmail</a>
-    </div>
-    @if(session('error'))
-        <div class="alert alert-danger">
-          {{ session('error') }}
-        </div>
-    @endif
-  </form>
-@endsection  --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,8 +8,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<title>Login</title>
 </head>
 <body>
@@ -123,7 +86,12 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	@if(session('alert'))
+    <script type="text/javascript">
+        window.onload = alert('{{session('alert')}}');
+    </script>
+    @endif
 </body>
 </html>

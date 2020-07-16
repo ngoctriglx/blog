@@ -222,7 +222,7 @@
             @yield('content')
         </div>
     </div>
-    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript" src="{{asset('js/admin.master.js')}}"></script>
     @if(session('alert'))
     <script type="text/javascript">

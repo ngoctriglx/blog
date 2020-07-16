@@ -79,14 +79,17 @@
                     <div><button type="button" id="resetimg">Reset ảnh</button></div>
                     <div>
                         <?php $__currentLoopData = $imgpost; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $valimgpost): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <span class="pip">
-                            <div id="abc<?php echo e($valimgpost->id); ?>">
-                                <img class="imageThumb" style="width:128px;height:128px;"
-                                    src="<?php echo e(asset('/uploads/imgpost/'.$valimgpost->link_img)); ?>">
-                                <br><span class="img-delete" data-id="<?php echo e($valimgpost->id); ?>"
-                                    key-id="<?php echo e($key); ?>">Remove</span>
-                            </div>
-                        </span>
+                        <form action="" method="POST">
+                            <?php echo csrf_field(); ?>
+                            <span class="pip">
+                                <div id="abc<?php echo e($valimgpost->id); ?>">
+                                    <img class="imageThumb" style="width:128px;height:128px;"
+                                        src="<?php echo e(asset('/uploads/imgpost/'.$valimgpost->link_img)); ?>">
+                                    <br><span class="img-delete" data-id="<?php echo e($valimgpost->id); ?>"
+                                        key-id="<?php echo e($key); ?>">Remove</span>
+                                </div>
+                            </span>
+                        </form>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <div id="showImage"></div>
                     </div>
@@ -102,21 +105,25 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(e){
-        $(".img-delete").click(function(){
+        $(".img-delete").click(function(e){
             var id = $(this).attr("data-id");
             var key = $(this).attr("key-id");
             var result = confirm("Bạn có muốn xóa ảnh số "+key+" ?");
             if (result == true) {
+                e.preventDefault();
+                var id = $(this).attr("data-id");
                 $("div#abc"+id).remove();
-                
+                var formData = new FormData();
+                formData.append('id',id);
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
                 $.ajax({
-                    type:'GET',
-                    url:'http://localhost/blog/public/user/edit/like/'+id,
+                    type:'POST',
+                    url:"<?php echo e(route('admin.post.delete.img')); ?>",
+                    data: formData,
                     contentType: false,
                     processData: false,
                     cache:false,

@@ -28,8 +28,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Tiêu đề</th>
                                     <th scope="col">Người đăng bài</th>
-                                    <th scope="col">Nội dung</th>
-                                    <th scope="col">Bình luận</th>
+                                    <th scope="col">Lượt xem</th>
                                     <th scope="col">Ngày tạo</th>
                                     <th scope="col">Xử lí</th>
                                 </tr>
@@ -39,9 +38,8 @@
                                 <tr>
                                     <th scope="row">{{$key}}</th>
                                     <td>{{$valpost->sub_title}}</td>
-                                    <td>{{$valpost->author}}o</td>
-                                    <td>{{$valpost->content}}</td>
-                                    <td>1</td>
+                                    <td>{{$valpost->author}}</td>
+                                    <td>{{$valpost->view}}</td>
                                     <td>{{$valpost->updated_at}}</td>
                                     <td>
                                         <a class="f_pc" href="{{route('home.get.blogdetail',['id'=>$valpost->id,'title'=>$valpost->title])}}">
@@ -55,9 +53,10 @@
                                             <button type="button" onclick="myDeletepost('{{$valpost->sub_title}}',{{$valpost->id}})" class="btn btn-danger">Xóa</button>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @endforeach                            
                             </tbody>
                         </table>
+                        <div>{{ $post->links() }}</div>
                     </div>
             </div>
         </div>

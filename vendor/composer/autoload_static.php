@@ -505,17 +505,16 @@ class ComposerStaticInite9d6f74ff7e65a9a95917c8887ad8855
     );
 
     public static $classMap = array (
-        'AdminSeeder' => __DIR__ . '/../..' . '/database/seeds/AdminSeeder.php',
-        'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
         'App\\Cmt' => __DIR__ . '/../..' . '/app/Cmt.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Admin\\CommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/CommentController.php',
         'App\\Http\\Controllers\\Admin\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/LoginController.php',
         'App\\Http\\Controllers\\Admin\\PostController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PostController.php',
         'App\\Http\\Controllers\\Admin\\ShowController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ShowController.php',
+        'App\\Http\\Controllers\\Admin\\xxxxxx' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/xxxxxx.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Home\\ShowController' => __DIR__ . '/../..' . '/app/Http/Controllers/Home/ShowController.php',
-        'App\\Http\\Controllers\\LikepostController' => __DIR__ . '/../..' . '/app/Http/Controllers/LikepostController.php',
         'App\\Http\\Controllers\\User\\CmtController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/CmtController.php',
         'App\\Http\\Controllers\\User\\InfoController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/InfoController.php',
         'App\\Http\\Controllers\\User\\LikeShareController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/LikeShareController.php',
@@ -541,6 +540,7 @@ class ComposerStaticInite9d6f74ff7e65a9a95917c8887ad8855
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Replycmt' => __DIR__ . '/../..' . '/app/Replycmt.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'App\\admin' => __DIR__ . '/../..' . '/app/admin.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',
         'Botble\\Assets\\Assets' => __DIR__ . '/..' . '/botble/assets/src/Assets.php',

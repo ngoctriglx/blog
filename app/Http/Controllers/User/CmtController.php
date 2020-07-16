@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Cmt,App\Replycmt,Auth;
+use App\Cmt,App\Replycmt,Auth,DB;
 
 class CmtController extends Controller
 {
@@ -34,6 +34,24 @@ class CmtController extends Controller
         }
         else{
             return response()->json(['error'=>'Bạn chưa đăng nhập.']);
+        }
+    }
+    public function postRepostComment(Request $request){
+        $status = $request->input('status');
+        if ($status == "comment") {
+            $cmt_id = $request->input('cmt_id');
+            $comment = Cmt::find($cmt_id);
+            $comment['repost'] += 1;
+            $comment->save();
+            return response()->json(['success'=>'Repost thành công.']);
+        } else {
+            if ($status == "replycomment") {
+                $cmt_id = $request->input('cmt_id');
+                $repostcomment = Replycmt::find($cmt_id);
+                $repostcomment['repost'] += 1;
+                $repostcomment->save();
+                return response()->json(['success'=>'Repost thành công.']);
+            }
         }
     }
 }

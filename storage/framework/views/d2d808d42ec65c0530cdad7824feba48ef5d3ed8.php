@@ -105,7 +105,7 @@
 
   <div>
     <div class="footer">
-      <div class="row">
+      <div class="row" style="margin-right: 0 !important">
         <div class="col-6">
           <div class="member" style="padding-left: 450px">
             <p>Nguyễn Thái Long</p>

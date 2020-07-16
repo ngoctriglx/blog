@@ -37,6 +37,7 @@ Route::group(['prefix' => 'user'], function () {
 
     Route::post('/comment','User\CmtController@postComment')->name('user.post.comment');
     Route::post('/replycomment','User\CmtController@postReplyComment')->name('user.post.replycomment');
+    Route::post('/repostcomment','User\CmtController@postRepostComment')->name('user.post.repostcomment');
 
     Route::get('/infouser','User\InfoController@getInfo')->name('user.get.infouser');
     Route::post('/postinfouser','User\InfoController@postInfo')->name('user.post.infouser');
@@ -61,8 +62,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/add','Admin\PostController@getAdd')->name('admin.get.add');
     Route::post('/postadd','Admin\PostController@postAdd')->name('admin.post.add');
     Route::get('/edit/{id}','Admin\PostController@getEdit')->name('admin.get.edit');
-    Route::get('/edit/delete/img/{id}','Admin\PostController@getDeleteimg')->name('admin.get.delete.img');
+    Route::post('/edit/delete/img','Admin\PostController@postDeleteimg')->name('admin.post.delete.img');
     Route::post('/postedit/{id}','Admin\PostController@postEdit')->name('admin.post.edit');
     Route::get('/delete/post/{id}','Admin\PostController@getDelete')->name('admin.get.delete');
 
+    Route::post('/delete/comment','Admin\CommentController@postDeleteCmt')->name('admin.post.delete.cmt');
 });

@@ -223,7 +223,7 @@
             <?php echo $__env->yieldContent('content'); ?>
         </div>
     </div>
-    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/admin.master.js')); ?>"></script>
     <?php if(session('alert')): ?>
     <script type="text/javascript">

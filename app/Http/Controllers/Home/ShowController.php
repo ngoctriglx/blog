@@ -15,7 +15,7 @@ class ShowController extends Controller
     }
     
     public function getBlog(){
-        $post = DB::table('post')->orderBy('updated_at','desc')->paginate(20);
+        $post = DB::table('post')->orderBy('id','desc')->paginate(20);
         
         $imgpost = array();
         foreach ($post as $value) {
@@ -29,19 +29,20 @@ class ShowController extends Controller
         $id_post ="";
         $imgavt = "";
         $post = DB::table('post')->where('id',$id)->first();
-        //foreach($post as $val){
+        // foreach($post as $val){
             $id_post = $post->id;
             $n = Post::find($id_post);
             $n['view'] += 1;
             $n->save();
             $imgavt = DB::table('imgpost')->where('post_id',$id_post)->limit(1)->get();
-        //}
+        // }
         $cmt = DB::table('comment')->where('post_id','=',$id_post)->orderBy('updated_at','desc')->get();
         $user = DB::table('users')->get();
         $replycmt = DB::table('replycomment')->orderBy('updated_at','desc')->get();
         $imgpost = DB::table('imgpost')->get();
         $infocmt = Info::all();
         $urlshare = URL::current();
+        $sllike = DB::table('likepost')->where('post_id',$id)->count();
         $i=0;
         foreach ($cmt as $key => $value) {
            $sumrely = DB::table('replycomment')->where('comment_id',$value->id)->get();
@@ -56,8 +57,8 @@ class ShowController extends Controller
                 ['user_id', Auth::User()->id],
                 ['post_id',$id],
              ])->first();
-            return view('home.blogdetail',['post'=>$post,'info'=>$info,'infocmt'=>$infocmt,'cmt'=>$cmt,'user'=>$user,'replycmt'=>$replycmt,'imgpost'=>$imgpost,'imgavt'=>$imgavt,'likepost'=> $likepost,'urlshare'=>$urlshare,'sumcmt'=>$sumcmt]);
+            return view('home.blogdetail',['post'=>$post,'info'=>$info,'infocmt'=>$infocmt,'cmt'=>$cmt,'user'=>$user,'replycmt'=>$replycmt,'imgpost'=>$imgpost,'imgavt'=>$imgavt,'likepost'=> $likepost,'urlshare'=>$urlshare,'sumcmt'=>$sumcmt,'sllike'=>$sllike]);
         }
-        return view('home.blogdetail',['post'=>$post,'infocmt'=>$infocmt,'cmt'=>$cmt,'user'=>$user,'replycmt'=>$replycmt,'imgpost'=>$imgpost,'imgavt'=>$imgavt,'sumcmt'=>$sumcmt]);
+        return view('home.blogdetail',['post'=>$post,'infocmt'=>$infocmt,'cmt'=>$cmt,'user'=>$user,'replycmt'=>$replycmt,'imgpost'=>$imgpost,'imgavt'=>$imgavt,'sumcmt'=>$sumcmt,'sllike'=>$sllike]);
     }
 }

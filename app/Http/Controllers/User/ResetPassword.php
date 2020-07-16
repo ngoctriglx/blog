@@ -47,6 +47,6 @@ class ResetPassword extends Controller
             $result->update(['password'=>bcrypt($request->password)]);
             $result->remember_token = null;
             $result->save();
-    		return redirect()->route('user.get.login')->with('alert','Đổi mật khẩu thành công');
+    		return redirect()->route('home.get.blog')->with('alert','Đổi mật khẩu thành công');
     }
 }
