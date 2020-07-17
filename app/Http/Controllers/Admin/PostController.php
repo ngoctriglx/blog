@@ -81,7 +81,7 @@ class PostController extends Controller
                 $imgpost->save();
             }
         }
-        return back()->with('error','Thêm bài viết thành công !');  
+        return back()->with('error','Sửa bài viết thành công !');  
     }
     public function getDelete($id){
         DB::table('post')->where('id', $id)->delete();

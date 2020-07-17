@@ -21,50 +21,52 @@
 
                     <form method="POST" enctype="multipart/form-data" action="{{route('admin.post.edit',$post->id)}}">
                         @csrf
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label><strong>Tiêu đề</strong></label>
-                                <input type="text" required value="{{$post->title}}" name="title" id="title"
-                                    class="form-control">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label><strong>Tiêu đề</strong></label>
+                                    <input type="text" required value="{{$post->title}}" name="title" id="title"
+                                        class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label><strong>Tiêu đề phụ</strong></label>
-                                <input type="text" required value="{{$post->sub_title}}" name="subtitle" id="subtitle"
-                                    class="form-control">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label><strong>Tiêu đề phụ</strong></label>
+                                    <input type="text" required value="{{$post->sub_title}}" name="subtitle" id="subtitle"
+                                        class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label><strong>Người viết</strong></label>
-                                <input type="text" required value="{{$post->author}}" name="author" id="author"
-                                    class="form-control">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label><strong>Người viết</strong></label>
+                                    <input type="text" required value="{{$post->author}}" name="author" id="author"
+                                        class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label><strong>Video</strong></label>
-                                <input type="text" required value="{{$post->video}}" name="video" id="place"
-                                    class="form-control">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label><strong>Video</strong></label>
+                                    <input type="text" required value="{{$post->video}}" name="video" id="place"
+                                        class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label><strong>Nội dung</strong></label>
-                                <textarea class="form-control" required value="" name="content" id="content"
-                                    placeholder="">{{$post->content}}</textarea>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label><strong>Nội dung</strong></label>
+                                    <textarea style="height: 150px" class="form-control" required value="" name="content" id="content"
+                                        placeholder="">{{$post->content}}</textarea>
+                                </div>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <label><strong>Thêm ảnh</strong></label>
                             <input type="file" name="images[]" accept=".png, .jpg, .jpeg" multiple id="images">
+                            <div><button type="button" id="resetimg">Reset ảnh</button></div>
                         </div>
                         <div class="col-8 mt-4">
                             <div class="form-group">
-                                <input type="submit" name="add" id="upload" value="Thêm" class="btn btn-success">
-                                <input type="reset" name="" value="Làm mới" class="btn btn-primary">
+                                <input type="submit" name="add" id="upload" value="Sửa" class="btn btn-success">
                             </div>
                         </div>
                         <div id="msg">
@@ -75,7 +77,6 @@
                             @endif
                         </div>
                     </form>
-                    <div><button type="button" id="resetimg">Reset ảnh</button></div>
                     <div>
                         @foreach ($imgpost as $key => $valimgpost)
                         <form action="" method="POST">

@@ -9,7 +9,12 @@ use Illuminate\Support\Facades\DB;
 class ShowController extends Controller
 {
     public function getDashboard(){
-        return view('admin.dashboard');
+        $post = DB::table('post')->count();
+        $user = DB::table('users')->count();
+        $comment = DB::table('comment')->count();
+        $replycomment = DB::table('replycomment')->count();
+        $sumcmt = $comment + $replycomment;
+        return view('admin.dashboard',['post'=>$post,'user'=>$user,'sumcmt'=>$sumcmt]);
     }
     public function getPost(){
         $post = DB::table('post')->orderBy('updated_at','desc')->paginate(10);

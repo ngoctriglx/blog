@@ -21,45 +21,48 @@
 
                     <form method="POST" enctype="multipart/form-data" action="<?php echo e(route('admin.post.edit',$post->id)); ?>">
                         <?php echo csrf_field(); ?>
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label><strong>Tiêu đề</strong></label>
-                                <input type="text" required value="<?php echo e($post->title); ?>" name="title" id="title"
-                                    class="form-control">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label><strong>Tiêu đề</strong></label>
+                                    <input type="text" required value="<?php echo e($post->title); ?>" name="title" id="title"
+                                        class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label><strong>Tiêu đề phụ</strong></label>
-                                <input type="text" required value="<?php echo e($post->sub_title); ?>" name="subtitle" id="subtitle"
-                                    class="form-control">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label><strong>Tiêu đề phụ</strong></label>
+                                    <input type="text" required value="<?php echo e($post->sub_title); ?>" name="subtitle" id="subtitle"
+                                        class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label><strong>Người viết</strong></label>
-                                <input type="text" required value="<?php echo e($post->author); ?>" name="author" id="author"
-                                    class="form-control">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label><strong>Người viết</strong></label>
+                                    <input type="text" required value="<?php echo e($post->author); ?>" name="author" id="author"
+                                        class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label><strong>Video</strong></label>
-                                <input type="text" required value="<?php echo e($post->video); ?>" name="video" id="place"
-                                    class="form-control">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label><strong>Video</strong></label>
+                                    <input type="text" required value="<?php echo e($post->video); ?>" name="video" id="place"
+                                        class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label><strong>Nội dung</strong></label>
-                                <textarea class="form-control" required value="" name="content" id="content"
-                                    placeholder=""><?php echo e($post->content); ?></textarea>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label><strong>Nội dung</strong></label>
+                                    <textarea style="height: 150px" class="form-control" required value="" name="content" id="content"
+                                        placeholder=""><?php echo e($post->content); ?></textarea>
+                                </div>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <label><strong>Thêm ảnh</strong></label>
                             <input type="file" name="images[]" accept=".png, .jpg, .jpeg" multiple id="images">
+                            <div><button type="button" id="resetimg">Reset ảnh</button></div>
                         </div>
                         <div class="col-8 mt-4">
                             <div class="form-group">
@@ -76,7 +79,6 @@
                             <?php endif; ?>
                         </div>
                     </form>
-                    <div><button type="button" id="resetimg">Reset ảnh</button></div>
                     <div>
                         <?php $__currentLoopData = $imgpost; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $valimgpost): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <form action="" method="POST">

@@ -25,7 +25,7 @@
 						<div class="formsix-e">
 							<div class="form-group i-password"> <input type="password" name="password" class="form-control" required="" id="password2" placeholder="Password *"> </div>
 						</div>
-						<div class="login_remember_box"> <label class="control control--checkbox"></span> </label> <a href="#" class="forget_password" data-toggle="modal" data-target="#myModal"> Forgot Password </a> </div>
+						<div class="login_remember_box"> <label class="control control--checkbox"></span> </label> <a href="#" class="forget_password" data-toggle="modal" data-target="#myModal"> Quên mât khẩu? </a> </div>
 						<div class="login_btn_wrapper"> <button class="btn btn-primary login_btn"> Login </button> </div>
 						
 						</form>

@@ -438,7 +438,7 @@ div.gallery {
     margin: 12px;
     border: 1px solid #ccc;
     float: left;
-    max-width: 240px;
+    width: 240px;
     height: 300px;
     flex: 1;
     display: flex;

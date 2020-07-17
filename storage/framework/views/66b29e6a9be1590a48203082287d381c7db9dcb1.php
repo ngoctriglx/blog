@@ -13,6 +13,7 @@
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
     <link href="<?php echo e(asset('css/admin/main.css')); ?>" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <?php echo $__env->yieldContent('css'); ?>
 </head>
 
@@ -179,8 +180,8 @@
                                 <!-- Dashboards -->
                             </li>
                             <li class="long-dashboard">
-                                <a href="<?php echo e(route('admin.get.dashboard')); ?>" class="mm-active">
-                                    <i class="metismenu-icon pe-7s-rocket"></i>
+                                <a href="<?php echo e(route('admin.get.dashboard')); ?>">
+                                    <i class="metismenu-icon fa fa-tachometer"></i>
                                     Dashboard
                                 </a>
                             </li>
@@ -197,20 +198,8 @@
                                 </li>
                                 <li>
                                     <a href="<?php echo e(route('admin.get.comment')); ?>">
-                                        <i class="metismenu-icon fa fa-th-large">
-                                        </i>Comment
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="comment.html">
-                                        <i class="metismenu-icon fa fa-comments">
+                                        <i class="metismenu-icon fa fa-comment">
                                         </i>Bình luận
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="user.html">
-                                        <i class="metismenu-icon fa fa-users">
-                                        </i>Người dùng
                                     </a>
                                 </li>
                             </div>

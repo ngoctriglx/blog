@@ -17,46 +17,48 @@
         </div>
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <div class="row">
-                    <form method="POST" enctype="multipart/form-data" action="{{ route('admin.post.add') }}">
-                        @csrf
-                        <div class="col-8">
+                <form method="POST" enctype="multipart/form-data" action="{{ route('admin.post.add') }}">
+                    @csrf
+                    <div class="row">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label><strong>Tiêu đề</strong></label>
                                 <input type="text" required name="title" id="title" class="form-control">
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label><strong>Tiêu đề phụ</strong></label>
                                 <input type="text" required name="subtitle" id="subtitle" class="form-control">
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label><strong>Người viết</strong></label>
                                 <input type="text" required name="author" id="author" class="form-control">
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label><strong>Video</strong></label>
                                 <input type="text" required name="video" id="place" class="form-control">
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label><strong>Nội dung</strong></label>
-                                <textarea class="form-control" value="" name="content" id="content"
+                                <textarea style="height: 150px" class="form-control" value="" name="content" id="content"
                                     placeholder=""></textarea>
                             </div>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-12">
                             <label><strong>Thêm ảnh</strong></label>
                             <input type="file" name="images[]" accept=".png, .jpg, .jpeg" required multiple id="images">
+                            <div><button type="button" id="resetimg">Reset ảnh</button></div>
                         </div>
-                        <div class="col-8 mt-4">
+                        <div id="showImage"></div>
+                        <div class="col-12 mt-4">
                             <div class="form-group">
                                 <input type="submit" name="add" id="upload" value="Thêm" class="btn btn-success">
                                 <input type="reset" name="" value="Làm mới" class="btn btn-primary">
@@ -69,10 +71,10 @@
                             </div>
                             @endif
                         </div>
-                    </form>
-                    <div><button type="button" id="resetimg">Reset ảnh</button></div>
-                    <div id="showImage"></div>
-                </div>
+                    </div>
+                </form>
+               
+                
             </div>
         </div>
     </div>
