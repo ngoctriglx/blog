@@ -24,7 +24,7 @@
           </span>
           <div class="text-title">
             <h2>{{$post->sub_title}}</h2>
-            <h5>By<a href="">{{$post->author}}</a>/<a href="">{{$post->created_at}}</a></h5>
+            <h5>By<a style="color: blue; font-style: italic">{{$post->author}}</a>/<a style="color: blue; font-style: italic">{{$post->created_at}}</a>/<a style="color: blue; font-style: italic">&#160;Lượt xem: {{$post->view}}</a></h5>
           </div>
         </div>
         <div class="title-blog-detail">
@@ -88,8 +88,8 @@
                 </i></span>
               @endif
               {{-- <span><i style="color: orange;" class="fa fa-bookmark"></i></span> --}}
-              <span class="fb-share-button" data-href="{{$urlshare}}" data-layout="button" data-size="small"><i
-                  style="color: blue;" class="fa fa-share"></i></span>
+              {{--  <span class="fb-share-button" data-href="{{$urlshare}}" data-layout="button" data-size="small"><i
+                  style="color: blue;" class="fa fa-share"></i></span>  --}}
               @else
               <h3 style="color: blue">Đăng nhập để like và chia sẽ bài viết</h3>
               @endif

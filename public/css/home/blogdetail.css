@@ -427,8 +427,6 @@ body{
 .long-nav span > i {
     padding: 2px;
     font-size: 25px;
-    padding-right: 50px;
-    padding-left: 50px;
     cursor: pointer;
 }
 

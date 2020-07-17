@@ -32,8 +32,8 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label><strong>Tiêu đề phụ</strong></label>
-                                    <input type="text" required value="{{$post->sub_title}}" name="subtitle" id="subtitle"
-                                        class="form-control">
+                                    <input type="text" required value="{{$post->sub_title}}" name="subtitle"
+                                        id="subtitle" class="form-control">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -53,8 +53,8 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label><strong>Nội dung</strong></label>
-                                    <textarea style="height: 150px" class="form-control" required value="" name="content" id="content"
-                                        placeholder="">{{$post->content}}</textarea>
+                                    <textarea style="height: 150px" class="form-control" required value=""
+                                        name="content" id="content" placeholder="">{{$post->content}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -62,9 +62,28 @@
                         <div class="col-6">
                             <label><strong>Thêm ảnh</strong></label>
                             <input type="file" name="images[]" accept=".png, .jpg, .jpeg" multiple id="images">
-                            <div><button type="button" id="resetimg">Reset ảnh</button></div>
                         </div>
-                        <div class="col-8 mt-4">
+
+                        <div style="display: flex">
+                            @foreach ($imgpost as $key => $valimgpost)
+                            <form action="" method="POST">
+                                @csrf
+                                <span class="pip">
+                                    <div id="abc{{$valimgpost->id}}">
+                                        <img class="imageThumb" style="width:128px;height:128px;"
+                                            src="{{asset('/uploads/imgpost/'.$valimgpost->link_img)}}">
+                                        <br><span class="img-delete" data-id="{{$valimgpost->id}}"
+                                            key-id="{{$key}}">Remove</span>
+                                    </div>
+                                </span>
+                            </form>
+                            @endforeach
+                            <div><button style="margin-top: 10px" type="button" id="resetimg">Reset ảnh</button></div>
+                        <div style="display: flex" id="showImage"></div>
+                        </div>
+                        
+
+                        <div class="col-8 mt-4" style="margin-top: 20px">
                             <div class="form-group">
                                 <input type="submit" name="add" id="upload" value="Sửa" class="btn btn-success">
                             </div>
@@ -77,22 +96,7 @@
                             @endif
                         </div>
                     </form>
-                    <div>
-                        @foreach ($imgpost as $key => $valimgpost)
-                        <form action="" method="POST">
-                            @csrf
-                            <span class="pip">
-                                <div id="abc{{$valimgpost->id}}">
-                                    <img class="imageThumb" style="width:128px;height:128px;"
-                                        src="{{asset('/uploads/imgpost/'.$valimgpost->link_img)}}">
-                                    <br><span class="img-delete" data-id="{{$valimgpost->id}}"
-                                        key-id="{{$key}}">Remove</span>
-                                </div>
-                            </span>
-                        </form>
-                        @endforeach
-                        <div id="showImage"></div>
-                    </div>
+                   
                 </div>
             </div>
         </div>

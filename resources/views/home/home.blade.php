@@ -56,12 +56,12 @@
           <i class="fab fa-twitter"></i>
           &#160;Follow
         </button>
-        <a class="followers" href="https://www.facebook.com/">30k</a>
+        <a class="followers" href="https://twitter.com/">30k</a>
         <button class="btn btn-danger btn-sm" type="button">
           <i class="fab fa-youtube"></i>
           &#160;Youtube
         </button>
-        <a class="followers" href="https://www.facebook.com/">20k</a>
+        <a class="followers" href="https://www.youtube.com/">20k</a>
       </div>
     </div>
 

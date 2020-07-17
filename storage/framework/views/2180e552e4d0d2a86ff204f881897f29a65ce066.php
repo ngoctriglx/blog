@@ -32,8 +32,8 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label><strong>Tiêu đề phụ</strong></label>
-                                    <input type="text" required value="<?php echo e($post->sub_title); ?>" name="subtitle" id="subtitle"
-                                        class="form-control">
+                                    <input type="text" required value="<?php echo e($post->sub_title); ?>" name="subtitle"
+                                        id="subtitle" class="form-control">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -53,8 +53,8 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label><strong>Nội dung</strong></label>
-                                    <textarea style="height: 150px" class="form-control" required value="" name="content" id="content"
-                                        placeholder=""><?php echo e($post->content); ?></textarea>
+                                    <textarea style="height: 150px" class="form-control" required value=""
+                                        name="content" id="content" placeholder=""><?php echo e($post->content); ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -62,12 +62,30 @@
                         <div class="col-6">
                             <label><strong>Thêm ảnh</strong></label>
                             <input type="file" name="images[]" accept=".png, .jpg, .jpeg" multiple id="images">
-                            <div><button type="button" id="resetimg">Reset ảnh</button></div>
                         </div>
-                        <div class="col-8 mt-4">
+
+                        <div style="display: flex">
+                            <?php $__currentLoopData = $imgpost; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $valimgpost): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <form action="" method="POST">
+                                <?php echo csrf_field(); ?>
+                                <span class="pip">
+                                    <div id="abc<?php echo e($valimgpost->id); ?>">
+                                        <img class="imageThumb" style="width:128px;height:128px;"
+                                            src="<?php echo e(asset('/uploads/imgpost/'.$valimgpost->link_img)); ?>">
+                                        <br><span class="img-delete" data-id="<?php echo e($valimgpost->id); ?>"
+                                            key-id="<?php echo e($key); ?>">Remove</span>
+                                    </div>
+                                </span>
+                            </form>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <div><button style="margin-top: 10px" type="button" id="resetimg">Reset ảnh</button></div>
+                        <div style="display: flex" id="showImage"></div>
+                        </div>
+                        
+
+                        <div class="col-8 mt-4" style="margin-top: 20px">
                             <div class="form-group">
-                                <input type="submit" name="add" id="upload" value="Thêm" class="btn btn-success">
-                                <input type="reset" name="" value="Làm mới" class="btn btn-primary">
+                                <input type="submit" name="add" id="upload" value="Sửa" class="btn btn-success">
                             </div>
                         </div>
                         <div id="msg">
@@ -79,22 +97,7 @@
                             <?php endif; ?>
                         </div>
                     </form>
-                    <div>
-                        <?php $__currentLoopData = $imgpost; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $valimgpost): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <form action="" method="POST">
-                            <?php echo csrf_field(); ?>
-                            <span class="pip">
-                                <div id="abc<?php echo e($valimgpost->id); ?>">
-                                    <img class="imageThumb" style="width:128px;height:128px;"
-                                        src="<?php echo e(asset('/uploads/imgpost/'.$valimgpost->link_img)); ?>">
-                                    <br><span class="img-delete" data-id="<?php echo e($valimgpost->id); ?>"
-                                        key-id="<?php echo e($key); ?>">Remove</span>
-                                </div>
-                            </span>
-                        </form>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        <div id="showImage"></div>
-                    </div>
+                   
                 </div>
             </div>
         </div>

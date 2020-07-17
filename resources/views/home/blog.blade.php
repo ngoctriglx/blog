@@ -10,10 +10,7 @@
     <div class="wrap-information">
       <h1>Blog</h1>
       <code>
-            You have found yet another learning space 
-            in this universe where you got a chance to 
-            learn something useful along with me. 
-            ome let learn & explore the world together 😇
+        Chúng ta sống trong một thế giới tuyệt vời đầy rẫy những vẻ đẹp, quyến rũ và phiêu lưu. Những chuyến phiêu lưu sẽ là bất tận, chỉ cần chúng ta tìm nó với đôi mắt luôn rộng mở. 😇
           </code>
     </div>
     <div class="social">
@@ -26,12 +23,12 @@
         <i class="fab fa-twitter"></i>
         &#160;Follow
       </button>
-      <a class="followers" href="https://www.facebook.com/">30k</a>
+      <a class="followers" href="https://twitter.com/">30k</a>
       <button class="btn btn-danger btn-sm" type="button">
         <i class="fab fa-youtube"></i>
         &#160;Youtube
       </button>
-      <a class="followers" href="https://www.facebook.com/">20k</a>
+      <a class="followers" href="https://www.youtube.com/">20k</a>
     </div>
   </div>
 
@@ -44,14 +41,13 @@
       <div class="col-sm card-items">
         <div class="card" style="width: 20rem;">
           <img class="card-img-top" style="height: 200px" src="{{asset('uploads/imgpost/'.$val2->link_img)}}" alt="">
-          <div class="card-body" 
-          style="display: flex;
+          <div class="card-body" style="display: flex;
           flex-direction: column;
           align-items: start;
           padding: 20px;">
             <h3 class="card-text">{{$val->title}}</h3>
             <p class="card-text">{{$val->sub_title}}</p>
-            
+
             <a href="{{route('home.get.blogdetail',['id'=>$val->id,'title'=>$val->title])}}"><small>Xem thêm</small></a>
 
           </div>

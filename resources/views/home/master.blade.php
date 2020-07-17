@@ -115,9 +115,9 @@
         </div>
         <div class="col-6">
           <div class="member" style="padding-left: 80px">
-            <p><i class="fab fa-facebook "></i>&emsp;Facebook</p>
-            <p><i class="fab fa-twitter"></i>&emsp;Twitter</p>
-            <p><i class="fab fa-youtube"></i>&emsp;Youtube</p>
+           <p > <a style="color: white" href="https://www.facebook.com/"><i class="fab fa-facebook "></i>&emsp;Facebook</a></p>
+           <p> <a style="color: white" href="https://twitter.com/"><i class="fab fa-twitter"></i>&emsp;Twitter</a></p>
+           <p> <a style="color: white" href="https://www.youtube.com/"><i class="fab fa-youtube"></i>&emsp;Youtube</a></p>
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@
           </span>
           <div class="text-title">
             <h2><?php echo e($post->sub_title); ?></h2>
-            <h5>By<a href=""><?php echo e($post->author); ?></a>/<a href=""><?php echo e($post->created_at); ?></a></h5>
+            <h5>By<a style="color: blue; font-style: italic"><?php echo e($post->author); ?></a>/<a style="color: blue; font-style: italic"><?php echo e($post->created_at); ?></a>/<a style="color: blue; font-style: italic">&#160;Lượt xem: <?php echo e($post->view); ?></a></h5>
           </div>
         </div>
         <div class="title-blog-detail">
@@ -87,8 +87,7 @@
                 </i></span>
               <?php endif; ?>
               
-              <span class="fb-share-button" data-href="<?php echo e($urlshare); ?>" data-layout="button" data-size="small"><i
-                  style="color: blue;" class="fa fa-share"></i></span>
+              
               <?php else: ?>
               <h3 style="color: blue">Đăng nhập để like và chia sẽ bài viết</h3>
               <?php endif; ?>
