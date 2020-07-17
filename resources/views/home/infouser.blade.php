@@ -16,8 +16,8 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h5 class="modal-title">Đổi mật khẩu</h5>
                         <button onClick="" type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Đổi mật khẩu</h4>
                     </div>
                     <div class="modal-body long-modal">
                         <div class="long-card" style="padding: 20px;">
@@ -34,7 +34,7 @@
                             <div class="form-group pass_show">
                                 <label>Mật khẩu mới</label>
                                 <input class="form-control" name="pass1" id="pass1"
-                                    placeholder="Mật khẩu có 6 ký tự trở lên" required type="password">
+                                    placeholder="Nhập mật khẩu" required type="password">
                             </div>
                             <p></p>
                             <div class="form-group pass_show">
@@ -81,7 +81,7 @@
                     <div class="col-md-2">
                         <label>Email</label>
                     </div>
-                    <div class="col-md-6" style="width: 57%;">
+                    <div class="col-md-6">
                         <input class="form-control" type="text" value="{{Auth::user()->email}}" disabled>
                     </div>
                     <div class="col-md-2">
@@ -90,37 +90,31 @@
                     </div>
                 </div>
                 <p></p>
-                <div class="row">
-                    <div>
+                <div class="row mb-3 mb-sm-0">
                         <div class="col-md-2">
                             <label>Họ và tên</label>
                         </div>
-                        <div class="col-md-9">
-                            <input name="name" id="name" class="form-control" type="text" placeholder="{{$val->name}}">
+                        <div class="col-md-8">
+                            <input style="width: 103%;" name="name" id="name" class="form-control" type="text" placeholder="Nhập tên của bạn">
                         </div>
-                    </div>
                 </div>
                 <p></p>
-                <div class="row">
-                    <div>
+                <div class="row mb-3 mb-sm-0">
                         <div class="col-md-2">
                             <label>Giới thiệu</label>
                         </div>
                         <div class="col-md-9">
-                            <textarea style="height: 80px;" name="introduce" id="introduce" class="form-control"
-                                placeholder="{{$val->introduce}}"></textarea>
+                            <textarea style="height: 72px; width: 91%;" name="introduce" id="introduce" class="form-control"
+                                placeholder="Giới thiệu về bạn"></textarea>
                         </div>
-                    </div>
                 </div>
-                <div class="row">
-                    <div>
+                <div class="row mb-3 mb-sm-0">
                         <div class="col-md-2">
-                            <label>Confirm</label>
+                            <label>Xác nhận</label>
                         </div>
                         <div class="col-md-9">
                             <input type="checkbox" name="" id="checkbox">
                         </div>
-                    </div>
                 </div>
                 <div>
                     @if(session('error'))
@@ -144,6 +138,8 @@
             </div>
         </div>
     </form>
+</div>
+
     @endforeach
     @endsection
     @section('script')

@@ -44,8 +44,8 @@
                         </div>
                         <div class="col-8">
                             <div class="form-group">
-                                <label><strong>Địa điểm</strong></label>
-                                <input type="text" required value="<?php echo e($post->place); ?>" name="place" id="place"
+                                <label><strong>Video</strong></label>
+                                <input type="text" required value="<?php echo e($post->video); ?>" name="video" id="place"
                                     class="form-control">
                             </div>
                         </div>
@@ -103,6 +103,12 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+<script type="text/javascript">
+    bkLib.onDomLoaded(function() {
+         new nicEditor().panelInstance('content');
+    });
+</script>
 <script type="text/javascript">
     $(document).ready(function(e){
         $(".img-delete").click(function(e){

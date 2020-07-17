@@ -22,7 +22,7 @@ class LoginController extends Controller
             return redirect(session('link'));
         }
         else{
-            $user = DB::table('user')->where('email', $email)->first();
+            $user = DB::table('users')->where('email', $email)->first();
             if(!empty($user)){
                 $password = $user->password;
                 if (empty($password)) {

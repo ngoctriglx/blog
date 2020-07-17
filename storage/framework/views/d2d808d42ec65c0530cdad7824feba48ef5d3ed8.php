@@ -41,14 +41,7 @@
         <li><a href="<?php echo e(route('home.get.blog')); ?>"><i class="fas fa-pencil-alt"></i></a></li>
         
         
-        <?php if(Auth::check()): ?>
-        <li>
-          <a href="#" class="notification">
-            <i class="fa fa-bell"></i>
-            <span class="badge">3</span>
-          </a>
-        </li>
-        <?php endif; ?>
+        
         <?php if(Auth::check()): ?>
         <li data-toggle="modal" data-target="#myModal"><img class="profile" <?php $__currentLoopData = $info; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             src="<?php echo e(asset('/uploads/imguser/'.$val->avatar)); ?>" <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> alt="interactive-avatar" />

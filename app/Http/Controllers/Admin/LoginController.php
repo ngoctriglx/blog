@@ -27,7 +27,7 @@ class LoginController extends Controller
             if(!empty($admin)){
                 return back()->with('error','Sai mật khẩu !');
             }else
-            return back()->with('error','Tài khoản không tồn tại !');
+            return back()->with('error','Bắt đầu với facebook hoặc gmail để tạo tài khoản !');
         }
     }
     public function getLogout(){

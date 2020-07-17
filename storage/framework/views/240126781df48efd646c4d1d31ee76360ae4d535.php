@@ -51,15 +51,7 @@
           padding: 20px;">
             <h3 class="card-text"><?php echo e($val->title); ?></h3>
             <p class="card-text"><?php echo e($val->sub_title); ?></p>
-            <span style="
-              white-space: nowrap; 
-              width: 150px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              margin-bottom: 20px">
-              <?php echo e($val->content); ?>
-
-            </span>
+            
             <a href="<?php echo e(route('home.get.blogdetail',['id'=>$val->id,'title'=>$val->title])); ?>"><small>Xem thêm</small></a>
 
           </div>

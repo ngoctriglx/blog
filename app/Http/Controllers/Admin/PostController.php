@@ -26,14 +26,14 @@ class PostController extends Controller
         $title = $request->title;
         $subtitle = $request->subtitle;
         $author = $request->author;
-        $place = $request->place;
+        $video = $request->video;
         $content = $request->content;
 
         $post = new Post;
         $post['title'] = $title;
         $post['sub_title'] = $subtitle;
         $post['author'] = $author;
-        $post['place'] = $place;
+        $post['video'] = $video;
         $post['content'] = $content;
         $post->save();
 
@@ -56,14 +56,14 @@ class PostController extends Controller
         $title = $request->title;
         $subtitle = $request->subtitle;
         $author = $request->author;
-        $place = $request->place;
+        $video = $request->video;
         $content = $request->content;
 
         $post = Post::find($id);
         $post['title'] = $title;
         $post['sub_title'] = $subtitle;
         $post['author'] = $author;
-        $post['place'] = $place;
+        $post['video'] = $video;
         $post['content'] = $content;
         $post->save();
 

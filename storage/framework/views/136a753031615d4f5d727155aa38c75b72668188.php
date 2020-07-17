@@ -72,7 +72,7 @@
         var id = id1;
         var result = confirm("Bạn có muốn xóa "+subtitle+" ?");
         if (result == true) {
-            window.location.href = "http://localhost/blog/public/admin/delete/"+id
+            window.location.href = "http://localhost/blog/public/admin/delete/post/"+id
           }
     }
 </script>

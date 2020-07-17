@@ -41,14 +41,14 @@
         <li><a href="{{route('home.get.blog')}}"><i class="fas fa-pencil-alt"></i></a></li>
         {{--  <li><a href="#"><i class="fas fa-headphones"></i></a></li>  --}}
         {{--  <li><a href="#"><i class="fas fa-sun"></i></a></li>  --}}
-        @if (Auth::check())
+        {{--  @if (Auth::check())
         <li>
           <a href="#" class="notification">
             <i class="fa fa-bell"></i>
             <span class="badge">3</span>
           </a>
         </li>
-        @endif
+        @endif  --}}
         @if (Auth::check())
         <li data-toggle="modal" data-target="#myModal"><img class="profile" @foreach($info as $val)
             src="{{asset('/uploads/imguser/'.$val->avatar)}}" @endforeach alt="interactive-avatar" />

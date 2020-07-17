@@ -11,7 +11,7 @@
 <div>
   <div class="wrap-container">
     <div class="row">
-      <div class="col-8">
+      <div class="col-12">
         <hr />
         <div class="wrap-image">
           <img @foreach ($imgavt as $valimgavt) src="{{asset('uploads/imgpost/'.$valimgavt->link_img)}}" @endforeach
@@ -31,28 +31,45 @@
           <h2><span>{{$post->title}}</span></h2>
         </div>
         <div class="tile-content">
-          {{--  <strong> # </strong> {{$post->title}}  --}}
+          {{--  <strong> # </strong> {{$post->title}} --}}
         </div>
         <hr class="hr-content" />
         <div class="wrap-content">
-          <p>
-            {{$post->content}}
-          </p>
+          <p> @php
+            echo htmlspecialchars_decode($post->content)
+            @endphp </p>
           <hr class="hr-content" />
-
-          @foreach ($imgpost as $valimgpost)
-          @if ($valimgpost->post_id === $post->id)
-          {{--  <div class="image-content">
-          </div>  --}}
-          <div style="display: flex; justify-content: center">
-            <div class="gallery">
-              <a target="_blank" href="{{asset('uploads/imgpost/'.$valimgpost->link_img)}}">
-                <img src="{{asset('uploads/imgpost/'.$valimgpost->link_img)}}" alt="image content">
-              </a>
+          <h2>ALBUM</h2>
+          <br>
+          <div style="display: flex; justify-content: center; padding: 30px">
+            <div class="row">
+              @foreach ($imgpost as $valimgpost)
+              @if ($valimgpost->post_id === $post->id)
+              <div class="col-3">
+                <div class="gallery">
+                  <a target="_blank" href="{{asset('uploads/imgpost/'.$valimgpost->link_img)}}">
+                    <img src="{{asset('uploads/imgpost/'.$valimgpost->link_img)}}" alt="image content">
+                  </a>
+                </div>
+              </div>
+              @endif
+              @endforeach
             </div>
           </div>
-          @endif
-          @endforeach
+
+          <div>
+            <h2>VIDEO</h2>
+            <div style="display: flex; justify-content: center;">
+              <iframe width="720" height="480" src="{{$post->video}}" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+              {{--  <video width="300" height="180" controls>
+                <source src="https://youtu.be/_2QbXjLkRug" type="video/mp4">
+                <source src="https://youtu.be/_2QbXjLkRug" type="video/ogg">
+              </video>  --}}
+            </div>
+          </div>
+          <br>
           <nav class="long-nav">
             <form action="" method="POST">
               @csrf
@@ -152,13 +169,14 @@
                     </li>
                     <form action="" method="POST">
                       @csrf
-                    <li class="list-inline-item ml-auto">
-                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                        <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
-                        <button type="button" class="btn btn-link" onclick="repost('comment',{{$valcmt->id}})" data-id="">Repost</button>
-                      </a>
-                    </li>
-                  </form>
+                      <li class="list-inline-item ml-auto">
+                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                          <i class="fa fa-flag g-pos-rel g-top-1 g-mr-3"></i>
+                          <button type="button" class="btn btn-link" onclick="repost('comment',{{$valcmt->id}})"
+                            data-id="">Tố cáo</button>
+                        </a>
+                      </li>
+                    </form>
                   </ul>
                 </div>
               </div>
@@ -220,27 +238,16 @@
                       <p>{{$valreplycmt->content}}</p>
 
                       <ul class="list-inline d-sm-flex my-0">
-                        <li class="list-inline-item g-mr-20">
-                          <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                            <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
-                            178
-                          </a>
-                        </li>
-                        <li class="list-inline-item g-mr-20">
-                          <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                            <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
-                            34
-                          </a>
-                        </li>
                         <form action="" method="POST">
                           @csrf
-                        <li class="list-inline-item ml-auto">
-                          <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                            <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
-                            <button type="button" class="btn btn-link" onclick="repost('replycomment',{{$valreplycmt->id}})" data-id="">Repost</button>
-                          </a>
-                        </li>
-                      </form>
+                          <li class="list-inline-item ml-auto">
+                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                              <i class="fa fa-flag g-pos-rel g-top-1 g-mr-3"></i>
+                              <button type="button" class="btn btn-link"
+                                onclick="repost('replycomment',{{$valreplycmt->id}})" data-id="">Tố cáo</button>
+                            </a>
+                          </li>
+                        </form>
                       </ul>
                     </div>
                   </div>
@@ -258,23 +265,27 @@
         </div>
       </div>
       {{--  Không liên quan  --}}
-      <div class="col-4">
+      {{--  <div class="col-4">
         <div class="interactive">
           <div>
-            <h2>SUBSCRIBE</h2>
+            <h2>VIDEO</h2>
             <div style="display: flex; justify-content: center;">
-              <video width="300" height="180" controls>
+              <iframe width="560" height="315" 
+              src="{{$post->video}}"
+      frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+      {{--  <video width="300" height="180" controls>
                 <source src="https://youtu.be/_2QbXjLkRug" type="video/mp4">
                 <source src="https://youtu.be/_2QbXjLkRug" type="video/ogg">
-              </video>
-            </div>
-            <div style="margin-top: 20px; display: flex; justify-content: center;">
-              <a href="https://www.youtube.com/">
+              </video>  --}}
+    </div>
+    <div style="margin-top: 20px; display: flex; justify-content: center;">
+      {{--  <a href="https://www.youtube.com/">
                 <button style="width: 300px" type="button" class="btn btn-danger"><i class="fab fa-youtube">&nbsp;Đăng
                     ký</i></button>
-              </a>
-            </div>
-            {{--  <div class="wrap-avatar-square">
+              </a>  --}}
+    </div>
+    {{--  <div class="wrap-avatar-square">
               <img class="avatar-square"
                 src="https://images.unsplash.com/photo-1592218636432-1fcfb03707dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                 alt="interactive-avatar" />
@@ -284,8 +295,8 @@
                 <div class="followers"><a href="/">40k</a></div>
               </div>
             </div>  --}}
-          </div>
-          <div>
+  </div>
+  {{--  <div>
             <h2>ABOUT</h2>
             <div class="wrap-avatar-cycler">
               <img class="avatar-cycler"
@@ -343,11 +354,11 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          </div>  --}}
+</div>
+</div> --}}
+</div>
+</div>
 </div>
 @endsection
 @section('script')
@@ -476,6 +487,8 @@
 </script>
 <script>
   function repost(status,id){
+    var result = confirm("Bạn có tố cáo bình luận này");
+    if(result == true){
     const formData = new FormData();
       formData.append('cmt_id',id);
       formData.append('status',status);
@@ -496,6 +509,7 @@
             }
         });
         {{--  location.reload();  --}}
+      }
   }
 </script>
 <div id="fb-root"></div>

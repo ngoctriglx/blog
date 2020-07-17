@@ -43,14 +43,14 @@ class CmtController extends Controller
             $comment = Cmt::find($cmt_id);
             $comment['repost'] += 1;
             $comment->save();
-            return response()->json(['success'=>'Repost thành công.']);
+            return response()->json(['success'=>'Tố cáo thành công.']);
         } else {
             if ($status == "replycomment") {
                 $cmt_id = $request->input('cmt_id');
                 $repostcomment = Replycmt::find($cmt_id);
                 $repostcomment['repost'] += 1;
                 $repostcomment->save();
-                return response()->json(['success'=>'Repost thành công.']);
+                return response()->json(['success'=>'Tố cáo thành công.']);
             }
         }
     }

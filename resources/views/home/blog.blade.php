@@ -51,14 +51,7 @@
           padding: 20px;">
             <h3 class="card-text">{{$val->title}}</h3>
             <p class="card-text">{{$val->sub_title}}</p>
-            <span style="
-              white-space: nowrap; 
-              width: 150px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              margin-bottom: 20px">
-              {{$val->content}}
-            </span>
+            
             <a href="{{route('home.get.blogdetail',['id'=>$val->id,'title'=>$val->title])}}"><small>Xem thêm</small></a>
 
           </div>
